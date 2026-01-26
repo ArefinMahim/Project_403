@@ -1,8 +1,6 @@
-#include<iostream>
-#include<string>
-#include<ctime>
-#include<algorithm>
-#include<vector>
+#pragma once
+#include"utility.cpp"
+#include"rooms.cpp"
 using namespace std;
 
 class Hotel{
@@ -11,6 +9,7 @@ class Hotel{
         string name;
         string location;
         static vector<int> id;
+        vector<Room> room;
 
     public:
         Hotel(string name, string location){
