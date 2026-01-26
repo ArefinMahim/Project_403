@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <chrono>
 
 using namespace std;
 
 class Hotel;
 
-enum Type {Premium, Standard, Economy};
+enum Type {Economy =1, Standard, Premium};
 
 class Room              //making the general room "type" class, an abstract class.
 {
@@ -16,28 +18,130 @@ class Room              //making the general room "type" class, an abstract clas
     float base_price;
     string description;
     bool book_status;
+    string booker_ID;
+    int max_guest_count;
+    //need a booking date and duration
 
-    static int room_count;
+
+    static int total_room_count;
 
     public:
 
-    Room(): room_ID("null"),type(Standard), base_price(100),description("Empty room, yet to be fleshed out"), book_status(false){}
+    Room(): room_ID("null"),type(Standard), base_price(100),description("Empty room, yet to be fleshed out"), book_status(false),booker_ID("null"),max_guest_count(0){}
 
     virtual void print_description()const = 0;
+    virtual void print_status() const =0;
 
-    virtual string get_room_ID()const =0;
-    virtual int get_type()const =0;
-    virtual float get_base_price()const =0;
-    virtual string get_description()const =0;
-    virtual bool get_status()const = 0;
+    string get_room_ID()
+    {
+        return room_ID;
+    }
+    virtual int get_type()
+    {
+        return type;
+    }
+    float get_base_price()
+    {
+        return base_price;
+    }
+    string get_description()
+    {
+        return description;
+    }
+    bool get_book_status()
+    {
+        return book_status;
+    }
+    string get_booker_ID()
+    {
+        return booker_ID;
+    }
+    int get_guest_count()
+    {
+        return max_guest_count;
+    }
 
-    virtual void manual_alter_room_ID(string x)=0;
-    virtual void set_type(int x)=0;
-    virtual void set_base_price(int x)=0;
-    virtual void set_description(string s)=0;
-    virtual void set_status(bool a)=0;
+    void manual_alter_room_ID(string x)
+    {
+        room_ID = x;
+    }
+    void set_type(int x)
+    {
+        type = x;
+    }
+    void set_base_price(int x)
+    {
+        base_price =x;
+    }
+    void set_description(string s)
+    {
+        description = s;
+    }
+    void set_book_status(bool a)
+    {
+        book_status = a;
+    }
+    void set_booker_ID(string s)
+    {
+        booker_ID =s;
+    }
+    void set_guest_count(int n)
+    {
+        max_guest_count = n;
+    }
+
 
 
 };
 
-int Room::room_count = 0;
+
+int Room::total_room_count = 0;         
+
+class Standard_room : public Room           //making room of standard type
+{
+    private:
+    vector<string> priviledges;
+    static int Standard_room_count;
+
+    public:
+
+    void print_description()
+    {
+        cout<<get_description()<<endl;      //extra information based on the room type will be added
+    }
+    void print_status()
+    {
+        cout<<"blank for now"<<endl;
+    }
+
+    vector<string> get_all_priviledges()
+    {
+        return priviledges;
+    }
+    string get_n_priviledge(int n)      //1 based indexing
+    {
+        return priviledges[n-1];
+    }
+
+
+    void push_priviledge(string s)
+    {
+        priviledges.push_back(s);
+    }
+    void set_n_priviledge(int n,string s)
+    {
+        if(n>priviledges.size())
+        {
+            cout<<"Error in setting priviledge. Out of scope"<<endl;
+        }
+        priviledges[n-1] = s;
+    }
+
+    void set_priviledges(vector<string> s)
+    {
+        priviledges = s;
+    }
+
+};
+
+int Standard_room::Standard_room_count = 0;
