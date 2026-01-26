@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <chrono>
-
+#include "utility.cpp"
 using namespace std;
 
 class Hotel;
@@ -31,32 +27,33 @@ class Room              //making the general room "type" class, an abstract clas
 
     virtual void print_description()const = 0;
     virtual void print_status() const =0;
+    virtual double calculate_total_price() const =0;
 
-    string get_room_ID()
+    string get_room_ID()const
     {
         return room_ID;
     }
-    virtual int get_type()
+    virtual int get_type()const
     {
         return type;
     }
-    float get_base_price()
+    float get_base_price()const
     {
         return base_price;
     }
-    string get_description()
+    string get_description()const
     {
         return description;
     }
-    bool get_book_status()
+    bool get_book_status()const
     {
         return book_status;
     }
-    string get_booker_ID()
+    string get_booker_ID()const
     {
         return booker_ID;
     }
-    int get_guest_count()
+    int get_guest_count()const
     {
         return max_guest_count;
     }
@@ -90,7 +87,20 @@ class Room              //making the general room "type" class, an abstract clas
         max_guest_count = n;
     }
 
+    void book_room()
+    {
+        if(book_status)
+        {
+            cout<<"Booking failed, Room \""<<room_ID<<"\" is already booked";
+        }
+        else{
+            cout<<"Booking successful, Room \""<<room_ID<<"\" has been booked.";
+            book_status = true;
+        }
+    }
 
+
+    virtual ~Room(){}
 
 };
 
@@ -105,11 +115,16 @@ class Standard_room : public Room           //making room of standard type
 
     public:
 
-    void print_description()
+    double calculate_total_price()const
+    {
+        return get_base_price() * 3.0;  //3.0 has just been put as a buffer number, after implementing date class, we will use that to determine total cost
+    }
+
+    void print_description()const
     {
         cout<<get_description()<<endl;      //extra information based on the room type will be added
     }
-    void print_status()
+    void print_status()const
     {
         cout<<"blank for now"<<endl;
     }
