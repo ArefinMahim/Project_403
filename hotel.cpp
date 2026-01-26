@@ -5,7 +5,7 @@ using namespace std;
 
 class Hotel{
     private:
-        int hotelId;
+        int hotel_Id;
         string name;
         string location;
         static vector<int> id;
@@ -24,7 +24,7 @@ class Hotel{
                 }
 
                 else{
-                    hotelId=h_id;
+                    hotel_Id=h_id;
                     id.push_back(h_id);
                     break;
                 }
@@ -35,7 +35,7 @@ class Hotel{
         }
 
         int get_id()const{
-            return hotelId;
+            return hotel_Id;
         }
 
         string get_name()const{
