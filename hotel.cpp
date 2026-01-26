@@ -1,6 +1,6 @@
 #pragma once
-#include"utility.cpp"
-#include"rooms.cpp"
+#include "utility.cpp"
+#include "rooms.cpp"
 using namespace std;
 
 class Hotel{
@@ -9,7 +9,7 @@ class Hotel{
         string name;
         string location;
         static vector<int> id;
-        vector<Room> room;
+        vector<Room> rooms;
 
     public:
         Hotel(string name, string location){
@@ -44,5 +44,24 @@ class Hotel{
 
         string get_location()const{
             return location;
-        }        
+        }
+
+        void set_name(string name){
+            this->name=name;
+        }
+
+        void set_location(string location){
+            this->location=location;
+        }
+
+        void add_room(Room& room){
+            rooms.push_back(room);
+        }
+
+        void print_details()const{
+            cout<<"Hotel ID: "<<hotel_Id<<endl;
+            cout<<"Hotel Name: "<<name<<endl;
+            cout<<"Hotel Location: "<<location<<endl;
+            cout<<"Number of Rooms: "<<rooms.size()<<endl;
+        }
 };
