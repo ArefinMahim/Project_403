@@ -3,4 +3,6 @@
 #include<ctime>
 #include<algorithm>
 #include<vector>
-#include <chrono>
+#include<chrono>
+#include<string>
+#include<cstdlib>
