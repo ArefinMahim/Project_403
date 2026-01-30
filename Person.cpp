@@ -66,7 +66,7 @@ class Person
 
         // Display Function
 
-        virtual void DisplayInfo() const
+        virtual void DisplayInfo() 
         {
             cout<<"Id: "<<getId()<<"\n";
             cout<<"Name: "<<getFullName()<<"\n";
