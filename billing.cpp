@@ -1,4 +1,4 @@
-#include<thread> //for adding slight delay in payment process to simulate real-time processing (help from stack overflow)
+#pragma once
 #include"utility.cpp"
 #include"rooms.cpp"
 #include"hotel.cpp"
