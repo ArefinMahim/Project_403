@@ -1,4 +1,3 @@
-#pragma once
 #include"utility.cpp"
 using namespace std;
 
