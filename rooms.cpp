@@ -1,7 +1,6 @@
-#include "utility.cpp"
+#pragma once
+#include"utility.cpp"
 using namespace std;
-
-class Hotel;
 
 enum Type {Economy =1, Standard, Premium};
 

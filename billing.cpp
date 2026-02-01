@@ -13,6 +13,7 @@ class Booking{
         double discountedPrice;
         double discountAmount;
         int discountPercent;
+        
     public:
         Booking(Hotel* h, Room* r, int n):hotel(h), room(r), nights(n), totalPrice(0.0), discountedPrice(0.0), discountAmount(0), discountPercent(0){}
         //use srand(time(NULL)) in main

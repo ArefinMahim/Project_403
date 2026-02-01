@@ -1,5 +1,5 @@
 #pragma once
-#include "person.cpp"
+#include"person.cpp"
 using namespace std;
 
 class Guest : public Person
@@ -77,6 +77,4 @@ class Guest : public Person
         cout<<"Check-In Date: "<<getCheckInDate()<<"\n";
         cout<<"Check-Out Date: "<<getCheckOutDate()<<"\n";
     }
-
-
 };
