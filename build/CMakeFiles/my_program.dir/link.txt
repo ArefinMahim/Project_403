@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/my_program.dir/link.d CMakeFiles/my_program.dir/main.cpp.o CMakeFiles/my_program.dir/src/billing.cpp.o CMakeFiles/my_program.dir/src/guest.cpp.o CMakeFiles/my_program.dir/src/hotel.cpp.o CMakeFiles/my_program.dir/src/person.cpp.o CMakeFiles/my_program.dir/src/rooms.cpp.o -o my_program
