@@ -1,48 +1,36 @@
-#pragma once
-#include"utility.cpp"
-#include"rooms.cpp"
-#include"hotel.cpp"
-using namespace std;
+#include"billing.hpp"
 
-class Booking{
-    private:
-        Room* room;
-        Hotel* hotel;
-        int nights;
-        double totalPrice;
-        double discountedPrice;
-        double discountAmount;
-        int discountPercent;
-    public:
-        Booking(Hotel* h, Room* r, int n):hotel(h), room(r), nights(n), totalPrice(0.0), discountedPrice(0.0), discountAmount(0), discountPercent(0){}
+//Booking Class Functions
+
+        Booking::Booking(Hotel* h, Room* r, int n):hotel(h), room(r), nights(n), totalPrice(0.0), discountedPrice(0.0), discountAmount(0), discountPercent(0){}
         //use srand(time(NULL)) in main
-        ~Booking(){}
+        Booking::~Booking(){}
 
-        Room* getRoom() const{return room;}
-        Hotel* getHotel() const{return hotel;}
-        int getNights() const{return nights;}
-        double getTotalPrice() const{return totalPrice;}
-        double getDiscountedPrice() const{return discountedPrice;}
-        double getDiscountAmount() const{return discountAmount;}
-        int getDiscountPercent() const{return discountPercent;}
+        Room* Booking::getRoom() const{return room;}
+        Hotel* Booking::getHotel() const{return hotel;}
+        int Booking::getNights() const{return nights;}
+        double Booking::getTotalPrice() const{return totalPrice;}
+        double Booking::getDiscountedPrice() const{return discountedPrice;}
+        double Booking::getDiscountAmount() const{return discountAmount;}
+        int Booking::getDiscountPercent() const{return discountPercent;}
 
         //Setters
-        void setRoom(Room* r){
+        void Booking::setRoom(Room* r){
             room=r;
         }
-        void setHotel(Hotel* h){
+        void Booking::setHotel(Hotel* h){
             hotel=h;
         }
-        void setNights(int n){
+        void Booking::setNights(int n){
             if(n>=0) nights=n;
         }
 
-        void calculateTotalPrice(){
+        void Booking::calculateTotalPrice(){
             totalPrice=room->calculate_total_price()*nights;
             discountedPrice=totalPrice;
             cout<<"Total price: "<<totalPrice<<endl;
         }
-        void applyVoucher(){
+        void Booking::applyVoucher(){
             char choice;
             cout<<"\nDo you want to apply a voucher?(y/n): ";
             cin>>choice;
@@ -81,7 +69,7 @@ class Booking{
             }
         }
 
-        string roomTypename(){
+        string Booking::roomTypename(){
             switch(room->get_type()){
                 case Economy: return "Economy";
                 case Standard: return "Standard";
@@ -90,7 +78,7 @@ class Booking{
             }
         }
 
-        void checkout(){
+        void Booking::checkout(){
             calculateTotalPrice();
             applyVoucher();
             cout<<"\n-----CHECKOUT-----"<<endl;
@@ -104,7 +92,7 @@ class Booking{
             paymentMethod();
         }
 
-        void paymentDelay() {
+        void Booking::paymentDelay() {
             cout<<"Processing payment";
             for(int i=0; i<3; i++) {
                 cout<<".";
@@ -114,7 +102,7 @@ class Booking{
             cout<<endl;
         }
 
-        void paymentMethod(){
+        void Booking::paymentMethod(){
             int choice;
             while(true){
                 cout<<"\nSelect Payment Method:"<<endl;
@@ -136,13 +124,13 @@ class Booking{
             }
         }
 
-        void processCash(){
+        void Booking::processCash(){
             paymentDelay();
             cout<<"Received "<<discountedPrice<<" in cash. Payment successful!"<<endl;
             cout<<"Thank you!"<<endl;
         }
 
-        void processEbanking(){
+        void Booking::processEbanking(){
             string accNumber;
             string pin;
             cout<<"\nEnter your bank account number: ";
@@ -152,4 +140,4 @@ class Booking{
             paymentDelay();
             cout<<"Received "<<discountedPrice<<" via e-banking. \nThank you!"<<endl;
         }
-};
+

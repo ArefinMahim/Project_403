@@ -1,6 +1,5 @@
-#include<iostream>
-#include "person.cpp"
-#include "guest.cpp"
+#include "header/person.hpp"
+#include "header/guest.hpp"
 
 using namespace std;
 
