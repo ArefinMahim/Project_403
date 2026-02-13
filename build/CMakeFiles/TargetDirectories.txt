@@ -1,3 +1,3 @@
-/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles/my_program.dir
+/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles/Project_403.dir
 /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles/edit_cache.dir
 /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles/rebuild_cache.dir

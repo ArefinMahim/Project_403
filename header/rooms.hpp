@@ -40,6 +40,7 @@ class Room              //making the general room "type" class, an abstract clas
     bool get_book_status()const;
     string get_booker_ID()const;
     int get_guest_count()const;
+    static int get_total_room_count();
 
 
     void manual_alter_room_ID(string x);
@@ -66,6 +67,8 @@ class Standard_room : public Room           //making room of standard type
 
     public:
 
+    Standard_room();
+
     double calculate_total_price()const;
 
     void print_description()const;
@@ -88,4 +91,78 @@ class Standard_room : public Room           //making room of standard type
 
 };
 
+class Economy_room : public Room
+{
+    private:
 
+    bool has_window;
+    bool shared_wifi;
+    bool has_private_facilities;
+    static int Economy_room_count;
+
+    public:
+
+    Economy_room();
+
+    void print_description() const;
+
+    void print_status();
+
+    double calculate_total_price();
+
+    
+    bool get_shared_wifi() const;
+
+    bool get_private_facilities() const;
+
+    bool get_window()const;
+
+    int get_economy_room_count();
+
+
+    void set_window(bool a);
+
+    void set_shared_wifi(bool a);
+
+    void set_private_facilities(bool a);
+
+    ~Economy_room();
+
+};
+
+
+class Premium_room:public Room
+{
+    private:
+
+    vector<string> is_connected_to;
+    bool has_dedicated_staff;
+    static int Premium_room_count;
+
+    public:
+
+    Premium_room();
+
+    double calculate_total_price();
+    
+    void print_description();
+
+    void print_status();
+
+    void add_connection(string s);
+
+    void set_connection(vector<string> sv);
+
+    void set_dedicated_staff(bool a);
+
+
+    vector<string> get_connections()const;
+    
+    bool get_dedicated_staff();
+
+    static int get_premium_room_count();
+
+    ~Premium_room();
+
+
+};
