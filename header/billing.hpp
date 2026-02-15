@@ -2,12 +2,15 @@
 #include"utility.hpp"
 #include"rooms.hpp"
 #include"hotel.hpp"
+#include"days.hpp"
 using namespace std;
 
 class Booking{
     private:
         Room* room;
         Hotel* hotel;
+        Days checkInDate;
+        Days checkOutDate;
         int nights;
         double totalPrice;
         double discountedPrice;
@@ -28,7 +31,7 @@ class Booking{
         //Setters
         void setRoom(Room* r);
         void setHotel(Hotel* h);
-        void setNights(int n);
+        void setNights(const Days& checkIn, const Days& checkOut);
 
         void calculateTotalPrice();
 

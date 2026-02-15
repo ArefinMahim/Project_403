@@ -21,8 +21,16 @@
         void Booking::setHotel(Hotel* h){
             hotel=h;
         }
-        void Booking::setNights(int n){
-            if(n>=0) nights=n;
+        void Booking::setNights(const Days& checkIn, const Days& checkOut) {
+            int stayedNights=checkIn.noOfDays(checkOut);
+            if(stayedNights<0){
+                cout<<"Invalid stay dates.\n";
+                nights=0;
+            return;
+            }
+            checkInDate=checkIn;
+            checkOutDate=checkOut;
+            nights=stayedNights;
         }
 
         void Booking::calculateTotalPrice(){
