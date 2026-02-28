@@ -73,4 +73,8 @@ int Days::noOfDays(const Days& toDate) const{
     totalDays+=endDate.date;
     return totalDays;
 }
+std::ostream& operator<<(std::ostream &os, const Days &d){
+    os<<d.date<<"/"<<d.month<<"/"<<d.year;
+    return os;
+}
 Days::~Days(){}
