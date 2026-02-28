@@ -39,6 +39,10 @@
             cout<<"Total price: "<<totalPrice<<endl;
         }
         void Booking::applyVoucher(){
+            if(totalPrice<=0){
+                cout<<"Error calculating total price. Cannot apply voucher."<<endl;
+                return;
+            }
             char choice;
             cout<<"\nDo you want to apply a voucher?(y/n): ";
             cin>>choice;
@@ -53,7 +57,8 @@
                 if(voucher=="FABIAN"||
                 voucher=="ISHMAM"||
                 voucher=="SIDDIQUE"||
-                voucher=="MAHIM"){
+                voucher=="MAHIM"||
+                voucher=="ABOUBAKAR"){
                     discountPercent=(rand()%50)+1;
                     discountAmount=totalPrice*(discountPercent/100.0);
                     discountedPrice=totalPrice-discountAmount;
@@ -77,7 +82,7 @@
             }
         }
 
-        string Booking::roomTypename(){
+        string Booking::roomTypename() const{
             switch(room->get_type()){
                 case Economy: return "Economy";
                 case Standard: return "Standard";
@@ -87,6 +92,18 @@
         }
 
         void Booking::checkout(){
+            if(!room || !hotel){
+                cout<<"Invalid booking details."<<endl;
+                return;
+            }
+            if(nights<=0){
+                cout<<"Invalid number of nights."<<endl;
+                return;
+            }
+            if(room->get_book_status()){
+                cout<<"Room is already booked. Cannot proceed with checkout."<<endl;
+                return;
+            }
             calculateTotalPrice();
             applyVoucher();
             cout<<"\n-----CHECKOUT-----"<<endl;
@@ -136,6 +153,7 @@
             paymentDelay();
             cout<<"Received "<<discountedPrice<<" in cash. Payment successful!"<<endl;
             cout<<"Thank you!"<<endl;
+            room->set_book_status(true);
         }
 
         void Booking::processEbanking(){
@@ -147,5 +165,6 @@
             cin>>pin;
             paymentDelay();
             cout<<"Received "<<discountedPrice<<" via e-banking. \nThank you!"<<endl;
+            room->set_book_status(true);
         }
 
