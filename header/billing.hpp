@@ -37,7 +37,7 @@ class Booking{
 
         void applyVoucher();
 
-        string roomTypename();
+        string roomTypename() const;
 
         void checkout();
 
