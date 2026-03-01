@@ -3,6 +3,7 @@
 #include"rooms.hpp"
 #include"hotel.hpp"
 #include"days.hpp"
+#include"payment.hpp"
 using namespace std;
 
 class Booking{
@@ -41,11 +42,5 @@ class Booking{
 
         void checkout();
 
-        void paymentDelay();
-
         void paymentMethod();
-
-        void processCash();
-
-        void processEbanking();
 };
