@@ -14,6 +14,17 @@ class FileManager
 {
     private:
 
+    static vector<string> split(const string& s, char delim) //taking a whole string as input and parsing it properly to load
+    {
+        vector<string> tokens;
+        string token;
+        istringstream ss(s);
+        while (getline(ss, token, delim))
+            tokens.push_back(token);
+        return tokens;
+    }
+
+
     public:
 
     //save functions
@@ -54,6 +65,8 @@ class FileManager
 
     }
 
+    //for hotels
+
     static void saveHotels(const vector<Hotel>& hotels) 
     {
         ofstream f("hotels.txt");
@@ -66,6 +79,114 @@ class FileManager
                         << h.get_location()  << "\n";
             }
     }
+    //for rooms of each individual Hotels
 
+    static void saveRooms(const vector<Hotel>& hotels) {
+        ofstream f("rooms.txt");
+        if (!f) { cerr << "[FileManager] Cannot write rooms.txt\n"; return; }
+        f << "# Project_403 Rooms\n";
+        for (const auto& h : hotels) {
+            for (const auto* r : h.get_rooms()) {
+                f << "ROOM|" << h.get_name()        << "|"
+                              << r->get_room_ID()     << "|"
+                              << r->get_type()        << "|"
+                              << r->get_base_price()  << "|"
+                              << (r->get_book_status() ? 1 : 0) << "|"
+                              << r->get_booker_ID()   << "|"
+                              << r->get_guest_count() << "\n";
+            }
+        }
+    }
+
+    //helper function to save everything at once
+    
+    static void saveAll(const vector<Guest>& guests,const vector<Hotel>& hotels) {
+        saveGuests(guests);
+        saveHotels(hotels);
+        saveRooms(hotels);
+    }
+
+    //Load functions
+
+    //Load Guests
+
+        static vector<Guest> loadGuests() {
+        vector<Guest> guests;
+        ifstream f("guests.txt");
+        if (!f)
+        { 
+            cerr<<"File could not be opened, resetting Guests."<<endl;
+            return guests;
+        }
+        
+        string line;
+        Guest* cur = nullptr;  
+        vector<BookingRecord> currentBookings; // Temp storage for bookings
+        
+        while (getline(f, line)) {
+            if (line.empty() || line[0] == '#') continue;
+            auto fields = split(line, '|');
+            if (fields.empty()) continue;
+            
+            if (fields[0] == "GUEST" && fields.size() == 12) //a guest should have 12 data, so a full field is a complete guest
+                                                            //learned the use of this from AI
+            {
+                // if there a previous guest already, then store it
+                if (cur) {
+                    for (const auto& b : currentBookings) {
+                        cur->addBookingRaw(b);
+                    }
+                    guests.push_back(*cur);
+                    delete cur;
+                    currentBookings.clear();
+                }
+                
+                // Create new guest
+                cur = new Guest(
+                    stoi(fields[1]), fields[2], fields[3],
+                    fields[4], fields[5], fields[6],
+                    fields[7], fields[8], "placeholder"
+                );
+                cur->setPasswordHashRaw(fields[9]);
+                cur->setProfileCreated(fields[10]);
+                cur->setTier(static_cast<MemberTier>(stoi(fields[11])));
+                
+            } 
+            else if (fields[0] == "BOOKING" && fields.size() == 8 && cur) //complete booking has 8 fields
+            {
+                BookingRecord b;
+                b.hotelName = fields[1];
+                b.roomID    = fields[2];
+                b.roomType  = fields[3];
+                b.checkIn   = fields[4];
+                b.checkOut  = fields[5];
+                b.totalCost = stod(fields[6]);
+                b.active    = (fields[7] == "1");
+                currentBookings.push_back(b);
+                
+            } else if (fields[0] == "END_GUEST" && cur) {
+                // Add all bookings to guest
+                for (const auto& b : currentBookings) {
+                    cur->addBookingRaw(b);
+                }
+                guests.push_back(*cur);
+                delete cur;
+                cur = nullptr;
+                currentBookings.clear();
+            }
+        }
+        
+        // Cleanup if file ends without END_GUEST
+        if (cur) {
+            for (const auto& b : currentBookings) {
+                cur->addBookingRaw(b);
+            }
+            guests.push_back(*cur);
+            delete cur;
+        }
+        
+        return guests;
+    }
+    
 
 };
