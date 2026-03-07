@@ -31,7 +31,7 @@ string Hotel::get_location() const { return location; }
 void Hotel::set_name(string name) { this->name = name; }
 void Hotel::set_location(string location) { this->location = location; }
 void Hotel::add_room(Room &room) {
-    rooms.push_back(room); // rooms needed
+    rooms.push_back(&room);
 }
 
 void Hotel::print_details() const {
