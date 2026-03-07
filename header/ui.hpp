@@ -411,6 +411,130 @@ class UI {
         pause();
     }
 
+    //guest page
+    void showProfilePage(){
+        while(true){
+            clearScreen();
+
+            header("GUEST PROFILE", C::CYN);
+            info("Name", currentGuest->getFullName());
+            info("Username", currentGuest->getUserame());
+            info("Email", currentGuest->getEmail());
+            info("Phone", currentGuest->getPhone());
+            info("Address", currentGuest->getAddress());
+            info("NID", currentGuest->getNid());
+            info("Memeber Since", currentGuest->getProfileCreated());
+            info("Memeber Tier", tierName(currentGuest->getTier()));
+            info("Name", to_string(currentGuest->getBookingHistory()));
+
+            auto& hist=currentGuest->getBookingHistory();
+            if(!hist.empty()){
+                subheader("BOOKING HISTORY", C::YEL);
+
+                for(auto& b:hist){
+                    string tag=b.active ? C::GRN+"[ACTIVE]"+C::RST : C::RED+"[PAST]"+C::RST;
+                    
+                    cout<<" "<<tag<<" "<<C::CYN<<b.hotelName
+                        <<C::RST<<" Room "<<b.roomID
+                        <<" ("<<b.roomTypeMM<<")"
+                        <<" "<<b.checkIn<<" -> "<<b.checkOut
+                        <<" $"<<(int)b.totalCost<<endl;
+                }
+            }
+
+            cout<<endl;
+            opt(1, "Browse & Book Hotels");
+            opt(0, "Logout");
+            cout<<endl;
+
+            int c=getInt("Choice", 0, 1);
+            if(c==0) break;
+            if(c==1) showAvailableHotelsPage();
+        }
+    }
+
+    //available hotels
+    void showAvailableHotelsPage(){
+        clearScreen();
+
+        header("AVAILABLE HOTELS", C::GRN);
+        auto& hotels=sys.getHotels();
+        for(int i=0; i<(int)hotels.size(); i++){
+            auto& h=hotels[i];
+            int freee=0;
+            
+            for(auto* t:h->get_rooms()) if(!r->get_book_status())   free++;
+
+            cout<<" "<<C::CYN<<"["<<(i+1)<<"]"
+                <<C::BOLD<<h->get_name()<<C::RST
+                <<" "<<C::GRY<<h->get_location()<<C::RST
+                <<" "<<C::GRN<<to_string(free)<<" rooms free"<<C::RST<<endl;
+        }
+
+        cout<<endl;
+        opt(0, "Back to Profile", C::RED);
+        cout<<endl;
+
+        int c=getInt("Select Hotel (0 to go back)", 0, (int)hotels.size());
+        if(c==0) return;
+        showParticularHotelPage(hotels[c-1]);
+    }
+
+    //particular hotel page
+    void showParticularHotelPage(shared_ptr<Hotel> hotel){
+        while(true){
+            clearScreen();
+
+            header(hotel->get_name(), C::GRN);
+            info("Location", hotel->get_location());
+            cout<<endl;
+
+            subheader("ROOMS", C::CYN);
+            cout<<" "<<C::BOLD
+                <<left<<setw(14)<<"Room ID"
+                <<setw(12)<<"Type"
+                <<setw(12)<<"Price/Night"
+                <<setw(8)<<"Guests"
+                <<"Status"<<C::RST<<endl;
+
+            line('-');
+            for(auto* r:hotel->get_rooms()){
+                string status=r->get_book_status() ? C::RED+"[BROKEN]"+C::RST : C::GRN+"[FREE]"+C::RST;
+                cout << "  " << C::CYN  << left << setw(14) << r->get_room_ID()
+                     << C::WHT << setw(12) << roomTypeName(r->get_type())
+                     << setw(12) << ("$" + to_string((int)r->get_base_price()))
+                     << setw(8)  << r->get_guest_count()
+                     << status   << endl;
+            }
+
+            line('-');
+            cout<<endl;
+            opt(1, "Select a Room to Book");
+            opt(0, "Back to Hotels", C::RED);
+            cout<<endl;
+
+            int c=getInt("Choice", 0, 1);
+            if(c==0) return;
+
+            string roomID=promt("Enter Room ID");
+            Room* room=hotel->find_room(roomID);
+
+            if(!room){
+                err("Room not found");
+                pause();
+                continue;
+            }
+
+            if(room->get_book_status()){
+                err("Room is already booked");
+                pause();
+                continue;
+            }
+
+            showIndividualRoomPage(hotel, room);
+        }
+    }
+
     
 
   public:
