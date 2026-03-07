@@ -3,6 +3,7 @@
 //#include "admin.hpp"
 #include "hotel.hpp"
 #include "rooms.hpp"
+#include "days.hpp"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -158,7 +159,7 @@ class FileManager
                 b.hotelName = fields[1];
                 b.roomID    = fields[2];
                 b.roomType  = fields[3];
-                b.checkIn   = fields[4];
+                b.checkIn   = stringToDate(fields[4]);
                 b.checkOut  = fields[5];
                 b.totalCost = stod(fields[6]);
                 b.active    = (fields[7] == "1");
