@@ -1,0 +1,22 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/my_program.dir/link.d"
+  "CMakeFiles/my_program.dir/main.cpp.o"
+  "CMakeFiles/my_program.dir/main.cpp.o.d"
+  "CMakeFiles/my_program.dir/src/billing.cpp.o"
+  "CMakeFiles/my_program.dir/src/billing.cpp.o.d"
+  "CMakeFiles/my_program.dir/src/guest.cpp.o"
+  "CMakeFiles/my_program.dir/src/guest.cpp.o.d"
+  "CMakeFiles/my_program.dir/src/hotel.cpp.o"
+  "CMakeFiles/my_program.dir/src/hotel.cpp.o.d"
+  "CMakeFiles/my_program.dir/src/person.cpp.o"
+  "CMakeFiles/my_program.dir/src/person.cpp.o.d"
+  "CMakeFiles/my_program.dir/src/rooms.cpp.o"
+  "CMakeFiles/my_program.dir/src/rooms.cpp.o.d"
+  "my_program"
+  "my_program.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/my_program.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
