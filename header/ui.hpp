@@ -299,6 +299,118 @@ class UI {
         pause();
     }
 
+    void adminAddHotel() {
+        clearScreen();
+
+        header("ADD HOTEL", C::GRN);
+        string name = prompt("Hotel Name");
+        string loc = prompt("Location");
+
+        if (name.empty()) {
+            err("Name cannot be empty.");
+            pause();
+            return;
+        }
+
+        sys.addHotel(name, loc);
+        ok("Hotel \"" + name +
+           "\" added with 10 rooms (4 Economy, 4 Standard, 2 Premium)");
+        pause();
+    }
+
+    void adminRemoveHotel() {
+        clearScreen();
+
+        header("REMOVE HOTEL", C::RED);
+        string name = prompt("Hotel name to remove");
+
+        if (!sys.findHotel(name)) {
+            err("Hotel not found");
+            pause();
+            return;
+        }
+
+        sys.removeHotel(name);
+        ok("Hotel removed");
+        pause();
+    }
+
+    void adminViewGuest() {
+        clearScreen();
+
+        header("ALL GUESTS", C::CYN);
+        auto &guests = sys.getGuests();
+        if (guests.empty()) {
+            warn("No registered guests yet");
+            pause();
+            return;
+        }
+
+        for (auto &g : guests) {
+            line('-');
+            info("Name", g->getFullName());
+            info("Username", g->getUsername());
+            info("Email", g->getEmail());
+            info("Phone", g->getPhone());
+            info("NID", g->getNid());
+            info("Tier", tierName(getTier()));
+            info("Bookings", to_string(g->getBookingHistory().size()).size());
+        }
+
+        line();
+        pause();
+    }
+
+    void adminRemoveGuest() {
+        clearScreen();
+
+        header("REMOVE GUEST", C::RED);
+        string uname = prompt("Guest username to remove");
+
+        if (!sys.findGuest(uname)) {
+            err("Guest not found");
+            pause();
+            return;
+        }
+
+        sys.removeGuest(uname);
+        ok("Guest removed");
+        pause();
+    }
+
+    void adminCancelBooking() {
+        clearScreen();
+
+        header("CANCEL ROOM BOOKING", C::YEL);
+        string hname = prompt("Hotel Name");
+        auto hotel = sys.findHotel(hname);
+
+        if (!hotel) {
+            err("Hotel not found");
+            pause();
+            return;
+        }
+
+        string roomID = prompt("Room ID");
+        Room *r = hotel->find_room(roomID);
+
+        if (!r) {
+            err("Room not found");
+            pause();
+            return;
+        }
+
+        if (!r->get_book_status()) {
+            warn("Room is not currently booked");
+            pause();
+            return;
+        }
+
+        sys.cancelRoomBooking(hotel, roomID);
+        ok("Booking for room " + roomID + "has been cancelled");
+        pause();
+    }
+
     
 
   public:
