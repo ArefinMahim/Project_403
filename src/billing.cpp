@@ -1,7 +1,16 @@
 #include"billing.hpp"
 #include"payment.hpp"
 
-//Booking Class Functions
+template<typename T>
+T getValidInput(){
+    T val;
+    if(!(cin>>val)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        throw runtime_error("Invalid input type.");
+    }
+    return val;
+}
 
 Booking::Booking(Hotel* h, Room* r, int n):hotel(h), room(r), nights(n), totalPrice(0.0), discountedPrice(0.0), discountAmount(0), discountPercent(0){}
 //use srand(time(NULL)) in main
@@ -25,18 +34,20 @@ void Booking::setHotel(Hotel* h){
 void Booking::setNights(const Days& checkIn, const Days& checkOut){
     int stayedNights=checkIn.noOfDays(checkOut);
     if(stayedNights<0){
-        cout<<"Invalid stay dates.\n";
+        cerr<<"Date error: Checkout date must be after checkin."<<endl;
         nights=0;
-    return;
+        return;
     }
     checkInDate=checkIn;
     checkOutDate=checkOut;
     nights=stayedNights;
 }
+
 void Booking::calculateTotalPrice(){
+    if(!room)   throw runtime_error("The room is not set, failed to calculate total price.");
     totalPrice=room->calculate_total_price()*nights;
     discountedPrice=totalPrice;
-    cout<<"Total price: "<<totalPrice<<endl;
+    cout<<left<<setw(20)<<"Total Price"<<": "<<fixed<<setprecision(2)<<totalPrice<<endl;
 }
 void Booking::applyVoucher(){
     if(totalPrice<=0){
@@ -45,7 +56,7 @@ void Booking::applyVoucher(){
     }
     char choice;
     cout<<"\nDo you want to apply a voucher?(y/n): ";
-    cin>>choice;
+    choice=getValidInput<char>();
     if(choice=='n' || choice=='N'){
         return;
     }
@@ -63,7 +74,7 @@ void Booking::applyVoucher(){
             discountAmount=totalPrice*(discountPercent/100.0);
             discountedPrice=totalPrice-discountAmount;
             cout<<"Voucher applied successfully! You got "<<discountPercent<<"% discount."<<endl;
-            cout<<"Discount amount: "<<discountAmount<<endl;
+            cout<<left<<setw(20)<<"Discount Amount"<<": "<<fixed<<setprecision(2)<<discountAmount<<endl;
             break;
         }
         else{
@@ -74,7 +85,7 @@ void Booking::applyVoucher(){
                 return;
             }
             cout<<"Do you want to try again? (y/n): ";
-            cin>>choice;
+            choice=getValidInput<char>();
             if(choice=='n'||choice=='N'){
                 return;
             }
@@ -90,28 +101,27 @@ string Booking::roomTypename() const{
     }
 }
 void Booking::checkout(){
-    if(!room || !hotel){
-        cout<<"Invalid booking details."<<endl;
-        return;
+    try{
+        if(!room || !hotel)     throw runtime_error("Invalid booking details.");
+        if(nights<=0)     throw runtime_error("Invalid number of nights.");
+        if(room->get_book_status())     throw runtime_error("Room is already booked. Cannot proceed with checkout.");
+
+        calculateTotalPrice();
+        applyVoucher();
+
+        cout<<"\n-----CHECKOUT-----"<<endl;
+        cout<<left<<setw(20)<<"Hotel Name"<<": "<<hotel->get_name()<<endl;
+        cout<<left<<setw(20)<<"Room Type"<<": "<<roomTypename()<<endl;
+        cout<<left<<setw(20)<<"Number of Nights"<<": "<<nights<<endl;
+        cout<<left<<setw(20)<<"Total Price"<<": "<<fixed<<setprecision(2)<<totalPrice<<endl;
+        cout<<left<<setw(20)<<"Discount Amount"<<": "<<discountAmount<<endl;
+        cout<<left<<setw(20)<<"Final Price"<<": "<<discountedPrice<<endl;
+
+        paymentMethod();
     }
-    if(nights<=0){
-        cout<<"Invalid number of nights."<<endl;
-        return;
+    catch(const exception& e){
+        cerr<<"Error during checkout: "<<e.what()<<endl;
     }
-    if(room->get_book_status()){
-        cout<<"Room is already booked. Cannot proceed with checkout."<<endl;
-        return;
-    }
-    calculateTotalPrice();
-    applyVoucher();
-    cout<<"\n-----CHECKOUT-----"<<endl;
-    cout<<"Hotel Name: "<<hotel->get_name()<<endl;
-    cout<<"Room Type: "<<roomTypename()<<endl;
-    cout<<"Number of Nights: "<<nights<<endl;
-    cout<<"Total Price: "<<totalPrice<<endl;
-    cout<<"Discount Amount: "<<discountAmount<<endl;
-    cout<<"Final Price: "<<discountedPrice<<endl;
-    paymentMethod();
 }
 void Booking::paymentMethod(){
     int choice;
@@ -120,7 +130,7 @@ void Booking::paymentMethod(){
         cout<<"\nSelect payment method:"<<endl;
         cout<<"1. Cash"<<endl;
         cout<<"2. E-banking"<<endl;
-        cin>>choice;
+        choice=getValidInput<int>();
         if(choice==1){
             payment=new cashPayment();
             break;
