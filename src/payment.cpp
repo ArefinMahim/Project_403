@@ -7,7 +7,7 @@ static void paymentDelay(){         //help from geeksforgeeks and chatgpt(sleep 
     for(int i=0; i<3; i++){
         cout<<".";
         cout.flush();
-        this_thread::sleep_for(chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     cout<<endl;
 }
