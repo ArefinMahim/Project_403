@@ -45,7 +45,7 @@
         }
 
         void Hotel::add_room(Room& room){
-            //rooms.push_back(room);
+            rooms.push_back(room);  // room related
         }
 
         void Hotel::print_details()const{
@@ -53,6 +53,16 @@
             cout<<"Hotel Name: "<<name<<endl;
             cout<<"Hotel Location: "<<location<<endl;
             cout<<"Number of Rooms: "<<rooms.size()<<endl;
+        }
+
+        const vector<Room*>& Hotel::get_rooms() const{      //room related
+            return rooms;
+        }
+
+        Room* Hotel::find_room(const string& roomID){       //room related
+            for (auto* r:rooms)
+                if (r->get_room_ID()==roomID) return r;
+            return nullptr;
         }
 
         vector<int> Hotel::id = {0};
