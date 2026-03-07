@@ -1,5 +1,5 @@
 #pragma once
-#include "hotelsystem.hpp"
+// #include "hotelsystem.hpp"
 #include "utility.hpp"
 #include <iomanip>
 #include <limits>
@@ -595,42 +595,46 @@ class UI {
         showCheckoutPage(hotel, room);
     }
 
-    //checkout
-    void showCheckOutPage(shared_ptr<Hotel> hotel, Room* room){
+    // checkout
+    void showCheckOutPage(shared_ptr<Hotel> hotel, Room *room) {
         clearScreen();
 
         header("CHECKOUT & CONFIRMATION", C::MAG);
 
-        Days checkIn=promptDate("Check-In Date");
-        Days checkOut=promptDate("Check-Out Date");
+        Days checkIn = promptDate("Check-In Date");
+        Days checkOut = promptDate("Check-Out Date");
 
-        int nights=checkIn.noOfDays(checkOut);
-        if(nights<=0){
+        int nights = checkIn.noOfDays(checkOut);
+        if (nights <= 0) {
             err("Check-out must be after check-in");
             pause();
             return;
         }
 
-        //create booking via hotel system
-        Booking* booking=sys.createBooking(currentGuest, hotel, room->get_room_ID(), chcekIn, checkOut);
-        if(!booking){
+        // create booking via hotel system
+        Booking *booking = sys.createBooking(
+            currentGuest, hotel, room->get_room_ID(), chcekIn, checkOut);
+        if (!booking) {
             err("Booking failed. Room not available");
             pause();
             return;
         }
 
         booking->checkout();
-        
-        if(room->get_book_status){
-            sys.confirmBooking(currentGuest, hotel, room, checkIn, checkOut, booking->getDiscountedPrice());
-            ok("Booking Confirmed! Enjoy your stay at "+hotel)
+
+        if (room->get_book_status) {
+            sys.confirmBooking(currentGuest, hotel, room, checkIn, checkOut,
+                               booking->getDiscountedPrice());
+            ok("Booking Confirmed! Enjoy your stay at " + hotel)
+        } else {
+            warn("Payment was not completed. Booking not confirmed");
         }
-        else{
-            warn
-        }
+
+        delete booking;
+        pause();
     }
 
-    public:
+  public:
     explicit UI(HotelSysytem &s) : sys(s) {}
 
     void run() {
