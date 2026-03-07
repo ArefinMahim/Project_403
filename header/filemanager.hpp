@@ -189,4 +189,64 @@ class FileManager
     }
     
 
+    class HotelInfo //helper class which doesnt involve rooms for easy load
+    {
+        public:
+        int id; 
+        string name; 
+        string location; 
+    };
+
+    //input loading for hotel
+    
+    static vector<HotelInfo> loadHotelInfo() {
+        vector<HotelInfo> info;
+        ifstream f("hotels.txt");
+        if (!f) return info;
+        string line;
+        while (getline(f, line)) {
+            if (line.empty() || line[0] == '#') continue;
+            auto fields = split(line, '|');
+            if (fields[0] == "HOTEL" && fields.size() == 4)
+                info.push_back({stoi(fields[1]), fields[2], fields[3]});
+        }
+        return info;
+    }
+
+    //input for rooms
+
+    static void loadRoomStates(vector<Hotel>& hotels) {
+        ifstream f("rooms.txt");
+        if (!f) return;
+        string line;
+        while (getline(f, line)) {
+            if (line.empty() || line[0] == '#') continue;
+            auto fields = split(line, '|');
+            if (fields[0] == "ROOM" && fields.size() == 8) {
+                string hotelName = fields[1];
+                string roomID    = fields[2];
+                bool   booked    = (fields[5] == "1");
+                string booker    = fields[6];
+                
+                for (auto& h : hotels) {
+                    if (h.get_name() == hotelName) {
+                        Room* r = h.find_room(roomID);
+                        if (r && booked) {
+                            r->set_book_status(true);
+                            r->set_booker_ID(booker);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    static bool saveFilesExist(const string& filename) //check if file exists
+    {
+        ifstream f(filename);
+        return f.good();
+    }
+
 };
