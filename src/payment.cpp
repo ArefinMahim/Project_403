@@ -1,7 +1,5 @@
-#include "payment.hpp"
-#include<iostream>
-#include<thread>
-#include<chrono>
+#include"payment.hpp"
+#include"utility.hpp"
 using namespace std;
 
 static void paymentDelay(){         //help from geeksforgeeks and chatgpt(sleep for method)
@@ -16,7 +14,7 @@ static void paymentDelay(){         //help from geeksforgeeks and chatgpt(sleep 
 
 void cashPayment::process(double amount){
     paymentDelay();
-    cout<<"Received "<<amount<<" in cash. Payment successful!"<<endl;
+    cout<<"Received "<<fixed<<setprecision(2)<<amount<<" in cash. Payment successful!"<<endl;
     cout<<"Thank you!"<<endl;
 }
 
@@ -28,5 +26,5 @@ void ebankingPayment::process(double amount){
     cout<<"Enter your PIN: ";
     cin>>pin;
     paymentDelay();
-    cout<<"Received "<<amount<<" via e-banking. \nThank you!"<<endl;
+    cout<<"Received "<<fixed<<setprecision(2)<<amount<<" via e-banking. \nThank you!"<<endl;
 }
