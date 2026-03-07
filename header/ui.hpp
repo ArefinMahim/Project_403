@@ -134,6 +134,133 @@ class UI{
             return "Premimum";
         }
 
-    public:
+        //Welcome Page
+        bool showWelcomePage(){
+            clearScreen();
+            header("WELCOME TO PROJECT_403", C::CYN);
+            cout<<endl;
+            cout<<C::WHT<<"We present you with a Hotel Booking System"<<C::RST<<endl<<endl;
+            
+            opt(1, "Login");
+            opt(2, "Sign Up");
+            opt(0, "Exit", c::RED);
+            cout<<end;
+            
+            int c=getInt("Choice", 0, 2);
+            if(c==0)    return false;
+            if(c==1)    return showLoginPage();
+            if(c==2)    return showSignUpPage();
+            
+            return true;
+        }
+
+        //Sign Up page
+        void showSignUpPage(){
+            clearScreen();
+            header("CREATE ACCOUNT", C::GRN);
+
+            string first=prompt("First Name");
+            string last=prompt("Last Name");
+            string phone=prompt("Phone Number");
+            string email=prompt("Email");
+            string address=prompt("Address");
+            string nid=prompt("NID");
+            string username=prompt("Username");
+            string pw=prompt("Password");
+            string pw2=prompt("Confirm Password");
+
+            if(first.empty() || username.empty() || pw.empty()){
+                err("All fields are required!");
+                pause();
+                return;
+            }
+
+            if(pw!=pw2){
+                err("Passwords do not match");
+                pause();
+                return;
+            }
+
+            if(sys.usernameExists(username)){
+                err("Username already taken. Try another.");
+                pause;
+                return;
+            }
+
+            sys.registerGuest(first, last, phone, email, address, nid, username, pw);
+            ok("Account Created! Please Log in.");
+            pause();
+        }
+
+        //login page
+        void showLoginPage(){
+            clearScreen();
+            header("LOGIN", C::CYN);
+
+            string uname=prompt("Username");
+            string pw=prompt("Password");
+
+            //admin login
+            auto admin=sys.loginAdmin(uname, pw);
+            if(admin){
+                currentAdmin=admin;
+                currentGuest=NULL;
+                showAdminPage();
+                currentAdmin=NULL;
+                return;
+            }
+
+            //guest login
+            auto guest=sys.loginGuest(uname, pw);
+            if(guest){
+                currentGuest=guest;
+                currentAdmin=NULL;
+                showProfilePage();
+                currentGuest=NULL;
+                return;
+            }
+            err("Invalid unsername or password");
+            pause();
+        }
+
+        //admin
+        void showAdminPage(){
+            while(true){
+                clearScreen();
+                header("ADMIN", C::MAG);
+                info("Username", currentAdmin->getUsername());
+                info("Name", currentAdmin->getFullName());
+                cout<<endl;
+
+                opt(1, "View all Hotels and Rooms");
+                opt(2, "Add Hotel");
+                opt(3, "Remove Hotel");
+                opt(4, "View all Guests");
+                opt(5, "Remove Guest");
+                opt(6, "Cancel a Booking");
+                opt(0, "Logout", C::RED);
+                cout<<end;
+            }
+
+            int c=getInt("Choice", 0, 6);
+            if(c==0)    break;
+            if(c==1)    adminViewHotels();
+            if(c==2)    adminAddHotel();
+            if(c==3)    adminRemoveHotel();
+            if(c==4)    adminViewGuests();
+            if(c==5)    adminRemoveGuest();
+            if(c==6)    adminCancelBooking();
+        }
+
         
+
+    public:
+        explicit UI(HotelSysytem& s):sys(s){}
+
+        void run(){
+            while(showWelcomePage()){}
+            header("Goodbye!", C::CYN);
+            cout<<endl;
+            cout<<"Thank you for using Project_403!"<<endl;
+        }
 };
