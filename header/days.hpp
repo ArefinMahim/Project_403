@@ -15,6 +15,8 @@ class Days{
         void setDate(int d, int m, int y);
         void addDays(int d);
         int noOfDays(const Days& toDate) const;
-        friend std::ostream& operator<<(std::ostream &os, const Days &d);
+        friend ostream& operator<<(ostream &os, const Days &d);
+        Days operator++(int);
+        Days operator--(int);
         ~Days();
 };
