@@ -6,7 +6,7 @@ using namespace std;
 Admin::Admin(): Person(), username("admin"), password("12345"){}
 
 Admin::Admin(int id, string first, string last, string phone, string email, string address, string username, string password)
-: Person(id, first, last, phone, email, address), username(user), password(pass) {}
+: Person(id, first, last, phone, email, address), username(username), password(password) {}
 
 string Admin::getUsername() const
 {
@@ -101,13 +101,14 @@ void Admin::addRoom(vector<Room*> & rooms)
 
     Room* newRoom= nullptr;
 
-    if(type==1) newRoom= new Economy_room();
+  /*  if(type==1) newRoom= new Economy_room();
     else if(type==2) newRoom= new Standard_room();
-    else if (type==3) newRoom= new Premium_room();
+    else if (type==3) newRoom= new Premium_room(); 
 
     else
     {
         cout<<"Invalid Type.\n";
         return;
-    }
+    } */
 }
+
