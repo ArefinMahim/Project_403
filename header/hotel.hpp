@@ -1,32 +1,29 @@
 #pragma once
-#include "utility.hpp"
 #include "rooms.hpp"
+#include "utility.hpp"
 
+class Hotel {
+  private:
+    int hotel_Id;
+    string name;
+    string location;
+    static vector<int> id;
+    vector<Room *> rooms;
 
-class Hotel{
-    private:
-        int hotel_Id;
-        string name;
-        string location;
-        static vector<int> id;
-        vector<Room*> rooms;
+  public:
+    Hotel(string name, string location);
 
-    public:
-        Hotel(string name, string location);
+    int get_id() const;
+    string get_name() const;
+    string get_location() const;
 
-        int get_id()const;
+    void set_name(string name);
+    void set_location(string location);
 
-        string get_name()const;
+    void add_room(Room &room);
 
-        string get_location()const;
+    void print_details() const;
 
-
-        void set_name(string name);
-
-        void set_location(string location);
-        
-
-        void add_room(Room& room);
-
-        void print_details()const;
+    const vector<Room *> &get_rooms() const; // return all rooms
+    Room *find_room(const string &roomID);
 };

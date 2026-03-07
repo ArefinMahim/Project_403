@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_4
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/my_program.dir/all
+all: CMakeFiles/Project_403.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/my_program.dir/codegen
+codegen: CMakeFiles/Project_403.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,40 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/my_program.dir/clean
+clean: CMakeFiles/Project_403.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/my_program.dir
+# Target rules for target CMakeFiles/Project_403.dir
 
 # All Build rule for target.
-CMakeFiles/my_program.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target my_program"
-.PHONY : CMakeFiles/my_program.dir/all
+CMakeFiles/Project_403.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target Project_403"
+.PHONY : CMakeFiles/Project_403.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/my_program.dir/rule: cmake_check_build_system
+CMakeFiles/Project_403.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_program.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Project_403.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles 0
-.PHONY : CMakeFiles/my_program.dir/rule
+.PHONY : CMakeFiles/Project_403.dir/rule
 
 # Convenience name for target.
-my_program: CMakeFiles/my_program.dir/rule
-.PHONY : my_program
+Project_403: CMakeFiles/Project_403.dir/rule
+.PHONY : Project_403
 
 # codegen rule for target.
-CMakeFiles/my_program.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Finished codegen for target my_program"
-.PHONY : CMakeFiles/my_program.dir/codegen
+CMakeFiles/Project_403.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Finished codegen for target Project_403"
+.PHONY : CMakeFiles/Project_403.dir/codegen
 
 # clean rule for target.
-CMakeFiles/my_program.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/clean
-.PHONY : CMakeFiles/my_program.dir/clean
+CMakeFiles/Project_403.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/clean
+.PHONY : CMakeFiles/Project_403.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

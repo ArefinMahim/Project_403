@@ -31,7 +31,7 @@ string Hotel::get_location() const { return location; }
 void Hotel::set_name(string name) { this->name = name; }
 void Hotel::set_location(string location) { this->location = location; }
 void Hotel::add_room(Room &room) {
-    rooms.push_back(room); // room related
+    rooms.push_back(room); // rooms needed
 }
 
 void Hotel::print_details() const {
@@ -41,15 +41,15 @@ void Hotel::print_details() const {
     cout << "Number of Rooms: " << rooms.size() << endl;
 }
 
-const vector<Room *> &Hotel::get_rooms() const { // room related
-    return rooms;
-}
+const vector<Room *> &Hotel::get_rooms() const { return rooms; }
 
-Room *Hotel::find_room(const string &roomID) { // room related
-    for (auto *r : rooms)
+Room *Hotel ::find_room(const string &roomID) {
+    for (auto *r : rooms) {
         if (r->get_room_ID() == roomID)
             return r;
-    return nullptr;
+    }
+
+    return NULL;
 }
 
 vector<int> Hotel::id = {0};
