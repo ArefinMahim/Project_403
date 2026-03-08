@@ -21,8 +21,7 @@ inline string tierName(MemberTier t) {
 }
 
 class BookingRecord {
-    Public:
-    
+    public:
     string hotelName;
     string roomID;
     string roomType;

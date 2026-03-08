@@ -22,8 +22,8 @@ static const string GRY = "\033[90m";
 class UI {
   private:
     HotelSystem &sys;
-    shared_ptr<Guest> currentGuest;
-    shared_ptr<Admin> currentAdmin;
+    Guest *currentGuest;
+    Admin *currentAdmin;
     static const int W = 62;
 
     void clearScreen() {
@@ -139,7 +139,7 @@ class UI {
         return "Premimum";
     }
 
-    //display star
+    // display star
     string starDisplay(int rating) {
         string s = "";
         for (int i = 1; i <= 3; i++)
@@ -282,9 +282,10 @@ class UI {
         clearScreen();
         header("ALL HOTELS", C::GRN);
         for (auto &h : sys.getHotels()) {
-            subheader(starDisplay(h->get_star_rating())+" "+h->getName() + " | " + h->get_location());
+            subheader(starDisplay(h->get_star_rating()) + " " + h->getName() +
+                      " | " + h->get_location());
             info("Amenities", h->get_amenities());
-            
+
             int free = 0;
             for (auto *r : h->get_rooms())
                 if (!r->get_book_status())
@@ -321,7 +322,7 @@ class UI {
             return;
         }
 
-        //ask for star rating
+        // ask for star rating
         cout << endl;
         opt(1, " 1-Star  (WiFi, Parking)");
         opt(2, " 2-Star  (WiFi, Parking, Breakfast)");
@@ -330,9 +331,10 @@ class UI {
         int stars = getInt("Select Star Rating", 1, 3);
 
         sys.addHotel(name, loc);
-        auto h=sys.findHotel(name);
+        auto h = sys.findHotel(name);
 
-        if(h) h->set_star_rating(stars);
+        if (h)
+            h->set_star_rating(stars);
         ok("Hotel \"" + name +
            "\" added with 10 rooms (4 Economy, 4 Standard, 2 Premium)");
         pause();
@@ -489,13 +491,12 @@ class UI {
                 if (!r->get_book_status())
                     free++;
 
-            cout << " " << C::CYN << "[" << (i + 1) << "]"
-                 << C::BOLD << h->get_name() << C::RST
-                 << " " << C::YEL << starDisplay(h->get_star_rating()) << C::RST
-                 << " " << C::GRY << h->get_location() << C::RST
-                 << " " << C::GRN << to_string(free) << " rooms free"
-                 << C::RST << endl;
-            cout <<" "<<C::GRY<<h->get_amenities()<<C::RST<<endl;
+            cout << " " << C::CYN << "[" << (i + 1) << "]" << C::BOLD
+                 << h->get_name() << C::RST << " " << C::YEL
+                 << starDisplay(h->get_star_rating()) << C::RST << " " << C::GRY
+                 << h->get_location() << C::RST << " " << C::GRN
+                 << to_string(free) << " rooms free" << C::RST << endl;
+            cout << " " << C::GRY << h->get_amenities() << C::RST << endl;
         }
 
         cout << endl;
@@ -509,11 +510,13 @@ class UI {
     }
 
     // particular hotel page
-    void showParticularHotelPage(shared_ptr<Hotel> hotel) {
+    void showParticularHotelPage(Hotel *hotel) {
         while (true) {
             clearScreen();
 
-            header(hotel->get_name() + " " + starDisplay(hotel->get_star_rating()), C::GRN);
+            header(hotel->get_name() + " " +
+                       starDisplay(hotel->get_star_rating()),
+                   C::GRN);
             info("Location", hotel->get_location());
             info("Amenities", hotel->get_amenities());
             cout << endl;
@@ -564,7 +567,7 @@ class UI {
     }
 
     // individual room page
-    void showIndividualRoomPage(shared_ptr<Hotel> hotel, Room *room) {
+    void showIndividualRoomPage(Hotel *hotel, Room *room) {
         clearScreen();
 
         header("ROOM DETAILS", C::YEL);
@@ -620,7 +623,7 @@ class UI {
     }
 
     // checkout
-    void showCheckOutPage(shared_ptr<Hotel> hotel, Room *room) {
+    void showCheckOutPage(Hotel *hotel, Room *room) {
         clearScreen();
 
         header("CHECKOUT & CONFIRMATION", C::MAG);
@@ -659,11 +662,11 @@ class UI {
     }
 
   public:
-    explicit UI(HotelSysytem &s) : sys(s) {}
+    explicit UI(HotelSysytem &s)
+        : sys(s), currentGuest(NULL), currentAdmin(NULL) {}
 
     void run() {
-        while (showWelcomePage()) {
-        }
+        while (showWelcomePage()) {}
         header("Goodbye!", C::CYN);
         cout << endl;
         cout << "Thank you for using Project_403!" << endl;
