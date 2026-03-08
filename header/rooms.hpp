@@ -69,11 +69,11 @@ class Standard_room : public Room           //making room of standard type
 
     Standard_room();
 
-    double calculate_total_price()const;
+    double calculate_total_price()const override;
 
-    void print_description()const;
+    void print_description()const override;
 
-    void print_status()const;
+    void print_status()const override;
 
     vector<string> get_all_priviledges();
 
@@ -104,11 +104,11 @@ class Economy_room : public Room
 
     Economy_room();
 
-    void print_description() const;
+    void print_description() const override;
 
-    void print_status();
+    void print_status() const override;
 
-    double calculate_total_price();
+    double calculate_total_price() const override;
 
     
     bool get_shared_wifi() const;
@@ -143,11 +143,11 @@ class Premium_room:public Room
 
     Premium_room();
 
-    double calculate_total_price();
+    double calculate_total_price() const override;
     
-    void print_description();
+    void print_description() const override;
 
-    void print_status();
+    void print_status() const override;
 
     void add_connection(string s);
 
