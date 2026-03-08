@@ -1,5 +1,6 @@
 #pragma once
 #include "person.hpp"
+#include "days.hpp"
 using namespace std;
 
 enum class MemberTier { BRONZE = 0, SILVER, GOLD, PLATINUM };
@@ -19,12 +20,14 @@ inline string tierName(MemberTier t) {
     return "Unknown";
 }
 
-struct BookingRecord {
+class BookingRecord {
+    Public:
+    
     string hotelName;
     string roomID;
     string roomType;
-    string checkIn;
-    string chechOut;
+    Days checkIn;
+    Days chechOut;
     double totalCost;
     bool active;
 };

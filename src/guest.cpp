@@ -111,7 +111,7 @@ void Guest::DisplayInfo() {
             cout << "[ " << (b.active ? "ACTIVE" : "PAST") << " ]"
                  << b.hotelName << " Room " << b.roomID << " (" << b.roomType
                  << ")"
-                 << " " << b.checkIn << " -> " << b.chechOut << " $"
+                 << " " << b.checkIn << " -> " << b.checkOut << " $"        //also typo fixed from hpp file
                  << (int)b.totalCost << endl;
         }
     }
