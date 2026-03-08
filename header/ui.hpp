@@ -22,8 +22,8 @@ static const string GRY = "\033[90m";
 class UI {
   private:
     HotelSystem &sys;
-    shared_ptr<Guest> currentGuest;
-    shared_ptr<Admin> currentAdmin;
+    Guest* currentGuest;
+    Admin* currentAdmin;
     static const int W = 62;
 
     void clearScreen() {
@@ -509,7 +509,7 @@ class UI {
     }
 
     // particular hotel page
-    void showParticularHotelPage(shared_ptr<Hotel> hotel) {
+    void showParticularHotelPage(Hotel* hotel) {
         while (true) {
             clearScreen();
 
@@ -564,7 +564,7 @@ class UI {
     }
 
     // individual room page
-    void showIndividualRoomPage(shared_ptr<Hotel> hotel, Room *room) {
+    void showIndividualRoomPage(Hotel* hotel, Room *room) {
         clearScreen();
 
         header("ROOM DETAILS", C::YEL);
@@ -620,7 +620,7 @@ class UI {
     }
 
     // checkout
-    void showCheckOutPage(shared_ptr<Hotel> hotel, Room *room) {
+    void showCheckOutPage(Hotel* hotel, Room *room) {
         clearScreen();
 
         header("CHECKOUT & CONFIRMATION", C::MAG);
