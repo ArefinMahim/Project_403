@@ -139,6 +139,14 @@ class UI {
         return "Premimum";
     }
 
+    //display star
+    string starDisplay(int rating) {
+        string s = "";
+        for (int i = 1; i <= 3; i++)
+            s += (i <= rating) ? "★" : "☆";
+        return s;
+    }
+
     // Welcome Page
     bool showWelcomePage() {
         clearScreen();
@@ -274,9 +282,10 @@ class UI {
         clearScreen();
         header("ALL HOTELS", C::GRN);
         for (auto &h : sys.getHotels()) {
-            subheader(h->getName() + " | " + h->get_location());
+            subheader(starDisplay(h->get_star_rating())+" "+h->getName() + " | " + h->get_location());
+            info("Amenities", h->get_amenities());
+            
             int free = 0;
-
             for (auto *r : h->get_rooms())
                 if (!r->get_book_status())
                     free++;
@@ -312,7 +321,18 @@ class UI {
             return;
         }
 
+        //ask for star rating
+        cout << endl;
+        opt(1, " 1-Star  (WiFi, Parking)");
+        opt(2, " 2-Star  (WiFi, Parking, Breakfast)");
+        opt(3, " 3-Star  (WiFi, Parking, Breakfast, Pool, Spa)");
+        cout << endl;
+        int stars = getInt("Select Star Rating", 1, 3);
+
         sys.addHotel(name, loc);
+        auto h=sys.findHotel(name);
+
+        if(h) h->set_star_rating(stars);
         ok("Hotel \"" + name +
            "\" added with 10 rooms (4 Economy, 4 Standard, 2 Premium)");
         pause();
@@ -469,10 +489,13 @@ class UI {
                 if (!r->get_book_status())
                     free++;
 
-            cout << " " << C::CYN << "[" << (i + 1) << "]" << C::BOLD
-                 << h->get_name() << C::RST << " " << C::GRY
-                 << h->get_location() << C::RST << " " << C::GRN
-                 << to_string(free) << " rooms free" << C::RST << endl;
+            cout << " " << C::CYN << "[" << (i + 1) << "]"
+                 << C::BOLD << h->get_name() << C::RST
+                 << " " << C::YEL << starDisplay(h->get_star_rating()) << C::RST
+                 << " " << C::GRY << h->get_location() << C::RST
+                 << " " << C::GRN << to_string(free) << " rooms free"
+                 << C::RST << endl;
+            cout <<" "<<C::GRY<<h->get_amenities()<<C::RST<<endl;
         }
 
         cout << endl;
@@ -490,8 +513,9 @@ class UI {
         while (true) {
             clearScreen();
 
-            header(hotel->get_name(), C::GRN);
+            header(hotel->get_name() + " " + starDisplay(hotel->get_star_rating()), C::GRN);
             info("Location", hotel->get_location());
+            info("Amenities", hotel->get_amenities());
             cout << endl;
 
             subheader("ROOMS", C::CYN);
