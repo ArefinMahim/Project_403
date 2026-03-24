@@ -115,8 +115,8 @@ class FileManager
                           << a.getPhone()     << "|"
                           << a.getEmail()     << "|"
                           << a.getAddress()   << "|"
-                          << a.getUsername()  << "|";
-    //                      << a.getPassword()  << "\n";  //will be implemented later, required
+                          << a.getUsername()  << "|"
+                          << a.getPassword()  << "\n";
         }
     }
 
@@ -219,7 +219,8 @@ class FileManager
         public:
         int id; 
         string name; 
-        string location; 
+        string location;
+        int stars =3;
     };
 
     //input loading for hotel
@@ -232,15 +233,21 @@ class FileManager
         while (getline(f, line)) {
             if (line.empty() || line[0] == '#') continue;
             vector<string> fields = split(line, '|'); 
-            if (fields[0] == "HOTEL" && fields.size() == 4)
-                info.push_back({stoi(fields[1]), fields[2], fields[3]});
+            if (fields[0] == "HOTEL" && fields.size() >= 4) {
+                HotelInfo hi;
+                hi.id       = stoi(fields[1]);
+                hi.name     = fields[2];
+                hi.location = fields[3];
+                hi.stars    = (fields.size() >= 5) ? stoi(fields[4]) : 3;
+                info.push_back(hi);
+            }
         }
         return info;
     }
 
     //input for rooms
 
-    static void loadRoomStates(vector<Hotel>& hotels) {
+    static void loadRoomStates(vector<Hotel*>& hotels) {
         ifstream f("rooms.txt");
         if (!f) return;
         string line;
@@ -254,8 +261,8 @@ class FileManager
                 string booker    = fields[6];
                 
                 for (auto& h : hotels) {
-                    if (h.get_name() == hotelName) {
-                        Room* r = h.find_room(roomID);
+                    if (h->get_name() == hotelName) {
+                        Room* r = h->find_room(roomID);
                         if (r && booked) {
                             r->set_book_status(true);
                             r->set_booker_ID(booker);
