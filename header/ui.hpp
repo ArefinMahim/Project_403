@@ -22,8 +22,8 @@ static const string GRY = "\033[90m";
 class UI {
   private:
     HotelSystem &sys;
-    shared_ptr<Guest> currentGuest;
-    shared_ptr<Admin> currentAdmin;
+    Guest* currentGuest;
+    Admin* currentAdmin;
     static const int W = 62;
 
     void clearScreen() {
@@ -137,6 +137,14 @@ class UI {
         if (t == Standard)
             return "Standard";
         return "Premimum";
+    }
+
+    //display star
+    string starDisplay(int rating) {
+        string s = "";
+        for (int i = 1; i <= 3; i++)
+            s += (i <= rating) ? "★" : "☆";
+        return s;
     }
 
     // Welcome Page
@@ -274,9 +282,10 @@ class UI {
         clearScreen();
         header("ALL HOTELS", C::GRN);
         for (auto &h : sys.getHotels()) {
-            subheader(h->getName() + " | " + h->get_location());
+            subheader(starDisplay(h->get_star_rating())+" "+h->getName() + " | " + h->get_location());
+            info("Amenities", h->get_amenities());
+            
             int free = 0;
-
             for (auto *r : h->get_rooms())
                 if (!r->get_book_status())
                     free++;
@@ -312,7 +321,18 @@ class UI {
             return;
         }
 
+        //ask for star rating
+        cout << endl;
+        opt(1, " 1-Star  (WiFi, Parking)");
+        opt(2, " 2-Star  (WiFi, Parking, Breakfast)");
+        opt(3, " 3-Star  (WiFi, Parking, Breakfast, Pool, Spa)");
+        cout << endl;
+        int stars = getInt("Select Star Rating", 1, 3);
+
         sys.addHotel(name, loc);
+        auto h=sys.findHotel(name);
+
+        if(h) h->set_star_rating(stars);
         ok("Hotel \"" + name +
            "\" added with 10 rooms (4 Economy, 4 Standard, 2 Premium)");
         pause();
@@ -411,9 +431,9 @@ class UI {
         pause();
     }
 
-    //guest page
-    void showProfilePage(){
-        while(true){
+    // guest page
+    void showProfilePage() {
+        while (true) {
             clearScreen();
 
             header("GUEST PROFILE", C::CYN);
@@ -427,105 +447,113 @@ class UI {
             info("Memeber Tier", tierName(currentGuest->getTier()));
             info("Name", to_string(currentGuest->getBookingHistory()));
 
-            auto& hist=currentGuest->getBookingHistory();
-            if(!hist.empty()){
+            auto &hist = currentGuest->getBookingHistory();
+            if (!hist.empty()) {
                 subheader("BOOKING HISTORY", C::YEL);
 
-                for(auto& b:hist){
-                    string tag=b.active ? C::GRN+"[ACTIVE]"+C::RST : C::RED+"[PAST]"+C::RST;
-                    
-                    cout<<" "<<tag<<" "<<C::CYN<<b.hotelName
-                        <<C::RST<<" Room "<<b.roomID
-                        <<" ("<<b.roomTypeMM<<")"
-                        <<" "<<b.checkIn<<" -> "<<b.checkOut
-                        <<" $"<<(int)b.totalCost<<endl;
+                for (auto &b : hist) {
+                    string tag = b.active ? C::GRN + "[ACTIVE]" + C::RST
+                                          : C::RED + "[PAST]" + C::RST;
+
+                    cout << " " << tag << " " << C::CYN << b.hotelName << C::RST
+                         << " Room " << b.roomID << " (" << b.roomTypeMM << ")"
+                         << " " << b.checkIn << " -> " << b.checkOut << " $"
+                         << (int)b.totalCost << endl;
                 }
             }
 
-            cout<<endl;
+            cout << endl;
             opt(1, "Browse & Book Hotels");
             opt(0, "Logout");
-            cout<<endl;
+            cout << endl;
 
-            int c=getInt("Choice", 0, 1);
-            if(c==0) break;
-            if(c==1) showAvailableHotelsPage();
+            int c = getInt("Choice", 0, 1);
+            if (c == 0)
+                break;
+            if (c == 1)
+                showAvailableHotelsPage();
         }
     }
 
-    //available hotels
-    void showAvailableHotelsPage(){
+    // available hotels
+    void showAvailableHotelsPage() {
         clearScreen();
 
         header("AVAILABLE HOTELS", C::GRN);
-        auto& hotels=sys.getHotels();
-        for(int i=0; i<(int)hotels.size(); i++){
-            auto& h=hotels[i];
-            int freee=0;
-            
-            for(auto* t:h->get_rooms()) if(!r->get_book_status())   free++;
+        auto &hotels = sys.getHotels();
+        for (int i = 0; i < (int)hotels.size(); i++) {
+            auto &h = hotels[i];
+            int freee = 0;
 
-            cout<<" "<<C::CYN<<"["<<(i+1)<<"]"
-                <<C::BOLD<<h->get_name()<<C::RST
-                <<" "<<C::GRY<<h->get_location()<<C::RST
-                <<" "<<C::GRN<<to_string(free)<<" rooms free"<<C::RST<<endl;
+            for (auto *t : h->get_rooms())
+                if (!r->get_book_status())
+                    free++;
+
+            cout << " " << C::CYN << "[" << (i + 1) << "]"
+                 << C::BOLD << h->get_name() << C::RST
+                 << " " << C::YEL << starDisplay(h->get_star_rating()) << C::RST
+                 << " " << C::GRY << h->get_location() << C::RST
+                 << " " << C::GRN << to_string(free) << " rooms free"
+                 << C::RST << endl;
+            cout <<" "<<C::GRY<<h->get_amenities()<<C::RST<<endl;
         }
 
-        cout<<endl;
+        cout << endl;
         opt(0, "Back to Profile", C::RED);
-        cout<<endl;
+        cout << endl;
 
-        int c=getInt("Select Hotel (0 to go back)", 0, (int)hotels.size());
-        if(c==0) return;
-        showParticularHotelPage(hotels[c-1]);
+        int c = getInt("Select Hotel (0 to go back)", 0, (int)hotels.size());
+        if (c == 0)
+            return;
+        showParticularHotelPage(hotels[c - 1]);
     }
 
-    //particular hotel page
-    void showParticularHotelPage(shared_ptr<Hotel> hotel){
-        while(true){
+    // particular hotel page
+    void showParticularHotelPage(Hotel* hotel) {
+        while (true) {
             clearScreen();
 
-            header(hotel->get_name(), C::GRN);
+            header(hotel->get_name() + " " + starDisplay(hotel->get_star_rating()), C::GRN);
             info("Location", hotel->get_location());
-            cout<<endl;
+            info("Amenities", hotel->get_amenities());
+            cout << endl;
 
             subheader("ROOMS", C::CYN);
-            cout<<" "<<C::BOLD
-                <<left<<setw(14)<<"Room ID"
-                <<setw(12)<<"Type"
-                <<setw(12)<<"Price/Night"
-                <<setw(8)<<"Guests"
-                <<"Status"<<C::RST<<endl;
+            cout << " " << C::BOLD << left << setw(14) << "Room ID" << setw(12)
+                 << "Type" << setw(12) << "Price/Night" << setw(8) << "Guests"
+                 << "Status" << C::RST << endl;
 
             line('-');
-            for(auto* r:hotel->get_rooms()){
-                string status=r->get_book_status() ? C::RED+"[BROKEN]"+C::RST : C::GRN+"[FREE]"+C::RST;
-                cout << "  " << C::CYN  << left << setw(14) << r->get_room_ID()
+            for (auto *r : hotel->get_rooms()) {
+                string status = r->get_book_status()
+                                    ? C::RED + "[BROKEN]" + C::RST
+                                    : C::GRN + "[FREE]" + C::RST;
+                cout << "  " << C::CYN << left << setw(14) << r->get_room_ID()
                      << C::WHT << setw(12) << roomTypeName(r->get_type())
                      << setw(12) << ("$" + to_string((int)r->get_base_price()))
-                     << setw(8)  << r->get_guest_count()
-                     << status   << endl;
+                     << setw(8) << r->get_guest_count() << status << endl;
             }
 
             line('-');
-            cout<<endl;
+            cout << endl;
             opt(1, "Select a Room to Book");
             opt(0, "Back to Hotels", C::RED);
-            cout<<endl;
+            cout << endl;
 
-            int c=getInt("Choice", 0, 1);
-            if(c==0) return;
+            int c = getInt("Choice", 0, 1);
+            if (c == 0)
+                return;
 
-            string roomID=promt("Enter Room ID");
-            Room* room=hotel->find_room(roomID);
+            string roomID = promt("Enter Room ID");
+            Room *room = hotel->find_room(roomID);
 
-            if(!room){
+            if (!room) {
                 err("Room not found");
                 pause();
                 continue;
             }
 
-            if(room->get_book_status()){
+            if (room->get_book_status()) {
                 err("Room is already booked");
                 pause();
                 continue;
@@ -535,7 +563,100 @@ class UI {
         }
     }
 
-    
+    // individual room page
+    void showIndividualRoomPage(Hotel* hotel, Room *room) {
+        clearScreen();
+
+        header("ROOM DETAILS", C::YEL);
+        info("Room ID", room->get_room_ID());
+        info("Type", roomTypeName(room->get_type()));
+        info("Base Price",
+             "$" + to_string((int)room->get_base_price()) + " / night");
+        info("Max Guests", to_string(room->get_guest_count()));
+        info("Description", room->get_description());
+        info("Status", room->get_book_status() ? "BOOKED" : "FREE");
+
+        // room specific details
+        if (room->get_type() == Standard) {
+            Standard_room *sr = dynamic_cast<Standard_room *>(room);
+
+            if (sr) {
+                auto privs = sr->get_all_privilages();
+                string ps;
+
+                for (auto &p : privs)
+                    ps += p + " ";
+                info("Privilages", ps);
+            }
+        } else if (room->get_type() == Premium) {
+            Premium_room *pr = dynamic_cast<Premium_room *>(room);
+            if (pr) {
+                string conns;
+                for (auto &s : pr->get_connections())
+                    conns += s + "  ";
+                info("Connected to", conns);
+                info("Dedicated Staff",
+                     pr->get_dedicated_staff() ? "Yes" : "No");
+            }
+        } else {
+            Economy_room *er = dynamic_cast<Economy_room *>(room);
+            if (er) {
+                info("Window", er->get_window() ? "Yes" : "No");
+                info("Shared WiFi", er->get_shared_wifi() ? "Yes" : "No");
+                info("Private Facilities",
+                     er->get_private_facilities() ? "Yes" : "No");
+            }
+        }
+
+        cout << endl;
+        opt(1, "Book this room");
+        opt(0, "Back", C::RED);
+        cout << endl;
+
+        int c = getInt("Choice", 0, 1);
+        if (c == 0)
+            return;
+        showCheckoutPage(hotel, room);
+    }
+
+    // checkout
+    void showCheckOutPage(Hotel* hotel, Room *room) {
+        clearScreen();
+
+        header("CHECKOUT & CONFIRMATION", C::MAG);
+
+        Days checkIn = promptDate("Check-In Date");
+        Days checkOut = promptDate("Check-Out Date");
+
+        int nights = checkIn.noOfDays(checkOut);
+        if (nights <= 0) {
+            err("Check-out must be after check-in");
+            pause();
+            return;
+        }
+
+        // create booking via hotel system
+        Booking *booking = sys.createBooking(
+            currentGuest, hotel, room->get_room_ID(), chcekIn, checkOut);
+        if (!booking) {
+            err("Booking failed. Room not available");
+            pause();
+            return;
+        }
+
+        booking->checkout();
+
+        if (room->get_book_status) {
+            sys.confirmBooking(currentGuest, hotel, room, checkIn, checkOut,
+                               booking->getDiscountedPrice());
+            ok("Booking Confirmed! Enjoy your stay at " + hotel)
+        } else {
+            warn("Payment was not completed. Booking not confirmed");
+        }
+
+        delete booking;
+        pause();
+    }
 
   public:
     explicit UI(HotelSysytem &s) : sys(s) {}
