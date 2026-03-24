@@ -155,12 +155,14 @@ class FileManager
             } 
             else if (fields[0] == "BOOKING" && fields.size() == 8 && cur) //complete booking has 8 fields
             {
+                Days d;
+
                 BookingRecord b;
                 b.hotelName = fields[1];
                 b.roomID    = fields[2];
                 b.roomType  = fields[3];
-                b.checkIn   = stringToDate(fields[4]);
-                b.checkOut  = fields[5];
+                b.checkIn   = d.stringToDate(fields[4]);
+                b.checkOut  = d.stringToDate(fields[5]);
                 b.totalCost = stod(fields[6]);
                 b.active    = (fields[7] == "1");
                 currentBookings.push_back(b);

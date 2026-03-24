@@ -21,13 +21,14 @@ inline string tierName(MemberTier t) {
 }
 
 class BookingRecord {
-    Public:
-    
+
+    public:
+
     string hotelName;
     string roomID;
     string roomType;
     Days checkIn;
-    Days chechOut;
+    Days checkOut;
     double totalCost;
     bool active;
 };
@@ -55,7 +56,6 @@ class Guest : public Person {
     }
 
   public:
-    // Constructors
 
     Guest();
     Guest(int Pid, string first, string last, string ph, string mail,
@@ -64,7 +64,6 @@ class Guest : public Person {
     Guest(int Pid, string first, string last, string ph, string mail,
           string addr, string Nid, string username, string password);
     
-    // Virtual Destructor which will be overridden
     ~Guest() = default;
 
     // Getters
