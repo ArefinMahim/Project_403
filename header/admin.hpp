@@ -3,6 +3,7 @@
 #include "hotel.hpp"
 #include "rooms.hpp"
 #include "guest.hpp"
+#include "days.hpp"
 #include<vector>
 #include<string>
 
