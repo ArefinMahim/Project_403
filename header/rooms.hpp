@@ -106,9 +106,9 @@ class Economy_room : public Room
 
     void print_description() const;
 
-    void print_status();
+    void print_status()const;
 
-    double calculate_total_price();
+    double calculate_total_price()const;
 
     
     bool get_shared_wifi() const;
