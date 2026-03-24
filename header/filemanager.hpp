@@ -1,6 +1,6 @@
 #pragma once
 #include "guest.hpp"
-//#include "admin.hpp"
+#include "admin.hpp"
 #include "hotel.hpp"
 #include "rooms.hpp"
 #include "days.hpp"
@@ -68,27 +68,28 @@ class FileManager
 
     //for hotels
 
-    static void saveHotels(const vector<Hotel>& hotels) 
+    static void saveHotels(const vector<Hotel*>& hotels) 
     {
         ofstream f("hotels.txt");
         if (!f) { cerr << "[FileManager] Cannot write hotels.txt\n"; return; }
         f << "# Project_403 Hotels\n";
             for (const auto& h : hotels)
             {
-                f << "HOTEL|" << h.get_id()       << "|"
-                        << h.get_name()      << "|"
-                        << h.get_location()  << "\n";
+                f << "HOTEL|" << h->get_id()       << "|"
+                        << h->get_name()      << "|"
+                        << h->get_location()  << "|"
+                        << h->get_star_rating()<<"\n";
             }
     }
     //for rooms of each individual Hotels
 
-    static void saveRooms(const vector<Hotel>& hotels) {
+    static void saveRooms(const vector<Hotel*>& hotels) {
         ofstream f("rooms.txt");
         if (!f) { cerr << "[FileManager] Cannot write rooms.txt\n"; return; }
         f << "# Project_403 Rooms\n";
         for (const auto& h : hotels) {
-            for (const auto* r : h.get_rooms()) {
-                f << "ROOM|" << h.get_name()        << "|"
+            for (const auto* r : h->get_rooms()) {
+                f << "ROOM|" << h->get_name()        << "|"
                               << r->get_room_ID()     << "|"
                               << r->get_type()        << "|"
                               << r->get_base_price()  << "|"
@@ -99,12 +100,33 @@ class FileManager
         }
     }
 
+    static void saveAdmins(const vector<Admin>& admins)
+    {
+        ofstream f("admins.txt");
+        if (!f) { cerr << "[FileManager] Cannot write admins.txt\n"; return; }
+        f << "# Project_403 Admins\n";
+        f << "# To add an admin, append a line in this format:\n";
+        f << "# ADMIN|id|firstName|lastName|phone|email|address|username|password\n";
+        for (auto& a : admins)
+        {
+            f << "ADMIN|" << a.getId()        << "|"
+                          << a.getFirstName() << "|"
+                          << a.getLastName()  << "|"
+                          << a.getPhone()     << "|"
+                          << a.getEmail()     << "|"
+                          << a.getAddress()   << "|"
+                          << a.getUsername()  << "|";
+    //                      << a.getPassword()  << "\n";  //will be implemented later, required
+        }
+    }
+
     //helper function to save everything at once
     
-    static void saveAll(const vector<Guest>& guests,const vector<Hotel>& hotels) {
+    static void saveAll(const vector<Guest>& guests,const vector<Hotel*>& hotels,const vector<Admin> admins) {
         saveGuests(guests);
         saveHotels(hotels);
         saveRooms(hotels);
+        saveAdmins(admins);
     }
 
     //Load functions
@@ -126,7 +148,7 @@ class FileManager
         
         while (getline(f, line)) {
             if (line.empty() || line[0] == '#') continue;
-            auto fields = split(line, '|');
+            vector<string> fields = split(line, '|');
             if (fields.empty()) continue;
             
             if (fields[0] == "GUEST" && fields.size() == 12) //a guest should have 12 data, so a full field is a complete guest
@@ -209,7 +231,7 @@ class FileManager
         string line;
         while (getline(f, line)) {
             if (line.empty() || line[0] == '#') continue;
-            auto fields = split(line, '|');
+            vector<string> fields = split(line, '|'); 
             if (fields[0] == "HOTEL" && fields.size() == 4)
                 info.push_back({stoi(fields[1]), fields[2], fields[3]});
         }
@@ -224,7 +246,7 @@ class FileManager
         string line;
         while (getline(f, line)) {
             if (line.empty() || line[0] == '#') continue;
-            auto fields = split(line, '|');
+            vector<string> fields = split(line, '|');
             if (fields[0] == "ROOM" && fields.size() == 8) {
                 string hotelName = fields[1];
                 string roomID    = fields[2];
@@ -245,11 +267,40 @@ class FileManager
         }
     }
 
+    //input for Admins
 
-    static bool saveFilesExist(const string& filename) //check if file exists
+    static vector<Admin> loadAdmins()
     {
-        ifstream f(filename);
-        return f.good();
+        vector<Admin> admins;
+        ifstream f("admins.txt");
+        if (!f)
+        {
+            cerr << "[FileManager] admins.txt not found, using default admin.\n";
+            return admins;
+        }
+        string line;
+        while (getline(f, line))
+        {
+            if (line.empty() || line[0] == '#') continue;
+            vector<string> fields = split(line, '|');
+
+            // complete admin has 9 fields
+
+            if (fields[0] == "ADMIN" && fields.size() == 9)
+            {
+                admins.emplace_back(
+                    stoi(fields[1]),  
+                    fields[2],
+                    fields[3],
+                    fields[4],
+                    fields[5],
+                    fields[6],
+                    fields[7],
+                    fields[8]
+                );
+            }
+        }
+        return admins;
     }
 
 };
