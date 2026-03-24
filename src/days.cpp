@@ -92,12 +92,12 @@ Days Days::operator--(int){
     return temp;
 }
 
-Days Days::stringToDate(const string &s){
+Days stringToDate(const string &s){
     int d,m,y;
     char slash1, slash2;
     stringstream ss(s);
     ss>>d>>slash1>>m>>slash2>>y;
-    if(ss.fail() || slash1!='/' || slash2!='/') throw runtime_error("Invalid date format");
+    if(ss.fail() || slash1!='-' || slash2!='-') throw runtime_error("Invalid date format");
     return Days(d,m,y);
 }
 

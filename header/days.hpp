@@ -18,6 +18,10 @@ class Days{
         friend ostream& operator<<(ostream &os, const Days &d);
         Days operator++(int);
         Days operator--(int);
+<<<<<<< HEAD
+        static Days stringToDate(const string &s);
+=======
         Days Days::stringToDate(const string &s);
+>>>>>>> bea76e6840dfb4c3047f6e38ecea53d57f49fdf5
         ~Days();
 };
