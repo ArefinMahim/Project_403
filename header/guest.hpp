@@ -66,26 +66,22 @@ class Guest : public Person {
     
     ~Guest() = default;
 
-    // Getters
     string getNid() const;
     int getRoomNo() const;
     string getCheckInDate() const;
     string getCheckOutDate() const;
 
-    // Setters
     void setNid(const string Nid);
     void setRoomNo(const int RoomNo);
     void setCheckInDate(const string CheckInDate);
     void setCheckOutDate(const string CheckOutDate);
 
-    // login getter
     string getUsername() const;
     string getPasswordHash() const;
     string getProfileCreated() const;
     MemberTier getTier() const;
     const vector<BookingRecord> &getBookingHistory() const;
 
-    // login setter
     void setPasswordHashRaw(const string &hash);
     void setProfileCreated(const string &date);
     void setTier(MemberTier t);
@@ -94,6 +90,5 @@ class Guest : public Person {
     void addBookingRecord(const BookingRecord &b);
     void addBookingRaw(const BookingRecord &b);
 
-    // Display Guest Information
     void DisplayInfo() override;
 };

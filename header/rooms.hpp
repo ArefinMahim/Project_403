@@ -143,11 +143,11 @@ class Premium_room:public Room
 
     Premium_room();
 
-    double calculate_total_price();
+    double calculate_total_price()const;
     
-    void print_description();
+    void print_description()const;
 
-    void print_status();
+    void print_status()const;
 
     void add_connection(string s);
 
