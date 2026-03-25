@@ -21,13 +21,14 @@ inline string tierName(MemberTier t) {
 }
 
 class BookingRecord {
-    Public:
-    
+
+    public:
+
     string hotelName;
     string roomID;
     string roomType;
     Days checkIn;
-    Days chechOut;
+    Days checkOut;
     double totalCost;
     bool active;
 };
@@ -55,7 +56,6 @@ class Guest : public Person {
     }
 
   public:
-    // Constructors
 
     Guest();
     Guest(int Pid, string first, string last, string ph, string mail,
@@ -64,29 +64,24 @@ class Guest : public Person {
     Guest(int Pid, string first, string last, string ph, string mail,
           string addr, string Nid, string username, string password);
     
-    // Virtual Destructor which will be overridden
     ~Guest() = default;
 
-    // Getters
     string getNid() const;
     int getRoomNo() const;
     string getCheckInDate() const;
     string getCheckOutDate() const;
 
-    // Setters
     void setNid(const string Nid);
     void setRoomNo(const int RoomNo);
     void setCheckInDate(const string CheckInDate);
     void setCheckOutDate(const string CheckOutDate);
 
-    // login getter
     string getUsername() const;
     string getPasswordHash() const;
     string getProfileCreated() const;
     MemberTier getTier() const;
     const vector<BookingRecord> &getBookingHistory() const;
 
-    // login setter
     void setPasswordHashRaw(const string &hash);
     void setProfileCreated(const string &date);
     void setTier(MemberTier t);
@@ -95,6 +90,5 @@ class Guest : public Person {
     void addBookingRecord(const BookingRecord &b);
     void addBookingRaw(const BookingRecord &b);
 
-    // Display Guest Information
     void DisplayInfo() override;
 };
