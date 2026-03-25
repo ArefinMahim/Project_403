@@ -142,7 +142,11 @@ int Standard_room::Standard_room_count = 0;
         cout<<"Also empty for now"<<endl;
     }
 
+<<<<<<< HEAD
+    double Economy_room::calculate_total_price() 
+=======
     double Economy_room::calculate_total_price()const
+>>>>>>> main
     {
         return get_base_price() * 2;
     }
@@ -192,7 +196,11 @@ int Standard_room::Standard_room_count = 0;
 
     Premium_room::Premium_room():Room(),has_dedicated_staff(true),is_connected_to({"spa","gym"}){}
 
+<<<<<<< HEAD
+    double Premium_room::calculate_total_price() 
+=======
     double Premium_room::calculate_total_price()const
+>>>>>>> main
     {
         return get_base_price() * 4 * (1.2 * is_connected_to.size());
     }
