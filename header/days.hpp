@@ -1,5 +1,10 @@
 #pragma once
-class Days{
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+class Days {
     private:
         int date;
         int month;
@@ -9,15 +14,16 @@ class Days{
     public:
         Days();
         Days(int d, int m, int y);
-        int getDay() const{return date;}
-        int getMonth() const{return month;}
-        int getYear() const{return year;}
+        int getDay()   const { return date;  }
+        int getMonth() const { return month; }
+        int getYear()  const { return year;  }
         void setDate(int d, int m, int y);
         void addDays(int d);
         int noOfDays(const Days& toDate) const;
         friend ostream& operator<<(ostream &os, const Days &d);
         Days operator++(int);
         Days operator--(int);
-        Days Days::stringToDate(const string &s);
+        // static: callable as Days::stringToDate(...) without an instance
+        static Days stringToDate(const string &s);
         ~Days();
 };

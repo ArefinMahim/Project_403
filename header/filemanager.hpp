@@ -122,7 +122,7 @@ class FileManager
 
     //helper function to save everything at once
     
-    static void saveAll(const vector<Guest>& guests,const vector<Hotel*>& hotels,const vector<Admin> admins) {
+    static void saveAll(const vector<Guest>& guests,const vector<Hotel*>& hotels,const vector<Admin>& admins) {
         saveGuests(guests);
         saveHotels(hotels);
         saveRooms(hotels);
@@ -177,14 +177,12 @@ class FileManager
             } 
             else if (fields[0] == "BOOKING" && fields.size() == 8 && cur) //complete booking has 8 fields
             {
-                Days d;
-
                 BookingRecord b;
                 b.hotelName = fields[1];
                 b.roomID    = fields[2];
                 b.roomType  = fields[3];
-                b.checkIn   = d.stringToDate(fields[4]);
-                b.checkOut  = d.stringToDate(fields[5]);
+                b.checkIn   = Days::stringToDate(fields[4]);
+                b.checkOut  = Days::stringToDate(fields[5]);
                 b.totalCost = stod(fields[6]);
                 b.active    = (fields[7] == "1");
                 currentBookings.push_back(b);
@@ -295,16 +293,12 @@ class FileManager
 
             if (fields[0] == "ADMIN" && fields.size() == 9)
             {
-                admins.emplace_back(
-                    stoi(fields[1]),  
-                    fields[2],
-                    fields[3],
-                    fields[4],
-                    fields[5],
-                    fields[6],
-                    fields[7],
+                admins.push_back(Admin(
+                    stoi(fields[1]),
+                    fields[2], fields[3], fields[4],
+                    fields[5], fields[6], fields[7],
                     fields[8]
-                );
+                ));
             }
         }
         return admins;
