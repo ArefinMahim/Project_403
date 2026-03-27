@@ -1,0 +1,4 @@
+# Project_403 Hotels
+HOTEL|5713|Grand Horizon|Dhaka|3
+HOTEL|4175|Lakeside Inn|Chittagong|2
+HOTEL|1123|Budget Stay|Sylhet|1

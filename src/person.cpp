@@ -51,7 +51,7 @@
 
         // Display Function
 
-        void Person::DisplayInfo() 
+        void Person::DisplayInfo()const
         {
             cout<<"Id: "<<getId()<<"\n";
             cout<<"Name: "<<getFullName()<<"\n";

@@ -1,0 +1,4 @@
+# Project_403 Admins
+# To add an admin, append a line in this format:
+# ADMIN|id|firstName|lastName|phone|email|address|username|password
+ADMIN|1|Admin|User|01458793524|admin@hotel.com|Hotel HQ|admin|admin123

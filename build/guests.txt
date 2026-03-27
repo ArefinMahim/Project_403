@@ -1,0 +1,4 @@
+# Project_403 Guest Accounts
+GUEST|1001|faisal|Hossain|09123878137|no@no.com|123|sndfi|noidea|6953829557365|28-03-2026|0
+BOOKING|Lakeside Inn|L9|Standard|13/2/2028|15/2/2028|554.4|1
+END_GUEST

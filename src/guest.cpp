@@ -86,7 +86,7 @@ void Guest::addBookingRaw(const BookingRecord &b) {
 }
 
 // Display Guest Information
-void Guest::DisplayInfo() {
+void Guest::DisplayInfo()const  {
     Person::DisplayInfo();
     cout << "NID: " << getNid() << endl;
     if (roomNo > 0)
