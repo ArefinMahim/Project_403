@@ -106,15 +106,12 @@ class Economy_room : public Room
 
     void print_description() const override;
 
-<<<<<<< HEAD
     void print_status() const override;
 
     double calculate_total_price() const override;
-=======
     void print_status()const;
 
     double calculate_total_price()const;
->>>>>>> main
 
     
     bool get_shared_wifi() const;
@@ -154,7 +151,6 @@ class Premium_room:public Room
     void print_description()const;
 
     void print_status()const;
->>>>>>> main
 
     void add_connection(string s);
 
