@@ -94,11 +94,11 @@ class UI {
         return (b == string::npos) ? "" : s.substr(b, e - b + 1);
     }
 
-    int getInt(const string &label, int lb, int hi) {
+    int getInt(const string &label, int lo, int hi) {
         while (true) {
             string s = prompt(label);
             try {
-                int v = stoi = (s);
+                int v = stoi(s);
                 if (v >= lo && v <= hi)
                     return v;
             } catch (...) {
@@ -159,7 +159,7 @@ class UI {
         opt(1, "Login");
         opt(2, "Sign Up");
         opt(0, "Exit", c::RED);
-        cout << end;
+        cout << endl;
 
         int c = getInt("Choice", 0, 2);
         if (c == 0)
@@ -298,7 +298,7 @@ class UI {
             cout << "Status" << : C::RST << endl;
             line('-');
 
-            for (auto r * : h->get_rooms()) {
+            for (auto r* : h->get_rooms()) {
                 string status =
                     r->get_book_status()
                         ? C::RED + "[BOOKED] by " + r->get_booker_ID() + C::RST
@@ -373,7 +373,7 @@ class UI {
             info("Email", g->getEmail());
             info("Phone", g->getPhone());
             info("NID", g->getNid());
-            info("Tier", tierName(getTier()));
+            info("Tier", tierName(g->getTier()));
             info("Bookings", to_string(g->getBookingHistory().size()).size());
         }
 
