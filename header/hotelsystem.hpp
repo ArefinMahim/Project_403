@@ -17,9 +17,7 @@ class HotelSystem
     vector<Guest>   guests;
     vector<Admin>   admins;
 
-    static int GuestID;
-
-    string makeID(Hotel* h, int counter)
+    string makeID(Hotel* h, int& counter)
     {
         return ((h->get_name()[0])+to_string(counter++));
     }
@@ -77,7 +75,10 @@ class HotelSystem
 
     int generateGuestID()
     {
-        return GuestID++;
+        int maxID = 1000;
+        for (auto& g : guests)
+            if (g.getId() > maxID) maxID = g.getId();
+        return maxID + 1;
     }
 
     public:
@@ -97,7 +98,7 @@ class HotelSystem
             FileManager::saveAdmins(admins);
         }
 
-        auto hotelInfos = FileManager::loadHotelInfo();         //giving error saying HotelInfo is an unidenfied type
+        vector<FileManager::HotelInfo> hotelInfos = FileManager::loadHotelInfo(); 
         if (hotelInfos.empty()) {
             makeDemoData();
         }
@@ -134,15 +135,15 @@ class HotelSystem
         }
     }
 
-    vector<Hotel*> getHotels() 
+    vector<Hotel*>& getHotels() 
     {
         return hotels; 
     }
-    vector<Guest> getGuests() 
+    vector<Guest>& getGuests() 
     {
         return guests;
     }
-    vector<Admin> getAdmins()
+    vector<Admin>& getAdmins()
     {
         return admins;
     }
