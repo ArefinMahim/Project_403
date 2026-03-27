@@ -1,8 +1,6 @@
 #pragma once
 #include "hotelsystem.hpp"
 #include "utility.hpp"
-#include <iomanip>
-#include <limits>
 using namespace std;
 
 // ANSI color
