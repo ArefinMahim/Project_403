@@ -63,3 +63,8 @@ Room* Hotel::find_room(int index) {
 }
 
 vector<int> Hotel::id = {0};
+
+Hotel::~Hotel()
+{
+    cout<<"Hotel was removed"<<endl;
+}

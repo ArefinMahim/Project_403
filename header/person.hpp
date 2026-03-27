@@ -47,7 +47,7 @@ class Person
 
         // Display Function
 
-        virtual void DisplayInfo();
+        virtual void DisplayInfo() const;
 
 };
 

@@ -90,5 +90,5 @@ class Guest : public Person {
     void addBookingRecord(const BookingRecord &b);
     void addBookingRaw(const BookingRecord &b);
 
-    void DisplayInfo() override;
+    void DisplayInfo()const ;
 };
