@@ -3,7 +3,7 @@
 #include "hotel.hpp"
 #include "guest.hpp"
 #include "person.hpp"
-#include "rooms.cpp"
+#include "rooms.hpp"
 #include<iostream>
 
 using namespace std;
@@ -16,6 +16,11 @@ Admin::Admin(int id, string first, string last, string phone, string email, stri
 string Admin::getUsername() const
 {
     return username;
+}
+
+string Admin::getPassword() const
+{
+    return password;
 }
 
 bool Admin::authenticate(string pass) const
@@ -42,7 +47,7 @@ void Admin::listHotels(const vector<Hotel*>& hotels) const
 
 void Admin::addHotel(vector<Hotel*>& hotels) 
 {
-    string name, location;
+    string name, location, stars, e_n, s_n, p_n;
 
     cout<<"Enter hotel name: ";
     getline(cin>>ws, name);
