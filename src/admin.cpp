@@ -135,6 +135,34 @@ void Admin::addRoom(vector<Room*> & rooms)
     cout<<"Room added successfully.\n";
 }
 
+void Admin::removeRoom(vector<Room*>& rooms, string roomId)
+{
+    for(int i=0; i<rooms.size(); i++)
+    {
+        if(rooms[i]->get_room_ID()==roomId)
+        {
+            delete rooms[i];
+            rooms.erase(rooms.begin()+i);
+            cout<<"Room Removed.\n";
+            return;
+        }
+
+        cout<<"Room Not Found.\n";
+    }
+}
+
+// Guest Part
+
+void Admin::listGuests(const vector<Guest>& guests) const
+{
+    cout<<"\n------Guests------\n";
+
+    for(const auto& g:guests)
+    {
+        g.DisplayInfo();
+    }
+}
+
 void Admin::removeGuest(vector<Guest>& guests, int guestId) 
 {
     for (int i= 0; i<guests.size(); i++) {
@@ -206,3 +234,4 @@ void Admin::runConsole(vector<Hotel*>& hotels,vector<Room*>& rooms,vector<Guest>
         else cout<<"Invalid Operation.\n";
     }
 }
+
