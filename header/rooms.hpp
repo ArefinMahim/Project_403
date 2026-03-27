@@ -149,13 +149,6 @@ class Premium_room:public Room
 
     Premium_room();
 
-<<<<<<< HEAD
-    double calculate_total_price() const override;
-    
-    void print_description() const override;
-
-    void print_status() const override;
-=======
     double calculate_total_price()const;
     
     void print_description()const;
