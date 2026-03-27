@@ -106,9 +106,6 @@ class Economy_room : public Room
 
     void print_description() const override;
 
-    void print_status() const override;
-
-    double calculate_total_price() const override;
     void print_status()const;
 
     double calculate_total_price()const;
