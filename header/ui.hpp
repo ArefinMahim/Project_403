@@ -1,8 +1,6 @@
 #pragma once
 #include "hotelsystem.hpp"
 #include "utility.hpp"
-#include <iomanip>
-#include <limits>
 using namespace std;
 
 // ANSI color
@@ -22,8 +20,8 @@ static const string GRY = "\033[90m";
 class UI {
   private:
     HotelSystem &sys;
-    Guest* currentGuest;
-    Admin* currentAdmin;
+    Guest *currentGuest;
+    Admin *currentAdmin;
     static const int W = 62;
 
     void clearScreen() {
@@ -48,7 +46,7 @@ class UI {
         cout << col << string(W, '=') << C::RST << endl;
     }
 
-    void dubheader(const string &t, const string &col = C::YEL) {
+    void subheader(const string &t, const string &col = C::YEL) {
         cout << col << string(W, '-') << C::RST << endl;
         cout << col << " " << t << C::RST << endl;
         cout << col << string(W, '-') << C::RST << endl;
@@ -139,7 +137,7 @@ class UI {
         return "Premimum";
     }
 
-    //display star
+    // display star
     string starDisplay(int rating) {
         string s = "";
         for (int i = 1; i <= 3; i++)
@@ -158,16 +156,20 @@ class UI {
 
         opt(1, "Login");
         opt(2, "Sign Up");
-        opt(0, "Exit", c::RED);
+        opt(0, "Exit", C::RED);
         cout << endl;
 
         int c = getInt("Choice", 0, 2);
         if (c == 0)
             return false;
-        if (c == 1)
-            return showLoginPage();
-        if (c == 2)
-            return showSignUpPage();
+        if (c == 1) {
+            showLoginPage();
+            return true;
+        }
+        if (c == 2) {
+            showSignUpPage();
+            return true;
+        }
 
         return true;
     }
@@ -201,7 +203,7 @@ class UI {
 
         if (sys.usernameExists(username)) {
             err("Username already taken. Try another.");
-            pause;
+            pause();
             return;
         }
 
@@ -258,33 +260,34 @@ class UI {
             opt(5, "Remove Guest");
             opt(6, "Cancel a Booking");
             opt(0, "Logout", C::RED);
-            cout << end;
-        }
+            cout << endl;
 
-        int c = getInt("Choice", 0, 6);
-        if (c == 0)
-            break;
-        if (c == 1)
-            adminViewHotels();
-        if (c == 2)
-            adminAddHotel();
-        if (c == 3)
-            adminRemoveHotel();
-        if (c == 4)
-            adminViewGuests();
-        if (c == 5)
-            adminRemoveGuest();
-        if (c == 6)
-            adminCancelBooking();
+            int c = getInt("Choice", 0, 6);
+            if (c == 0)
+                break;
+            if (c == 1)
+                adminViewHotels();
+            if (c == 2)
+                adminAddHotel();
+            if (c == 3)
+                adminRemoveHotel();
+            if (c == 4)
+                adminViewGuests();
+            if (c == 5)
+                adminRemoveGuest();
+            if (c == 6)
+                adminCancelBooking();
+        }
     }
 
     void adminViewHotels() {
         clearScreen();
         header("ALL HOTELS", C::GRN);
         for (auto &h : sys.getHotels()) {
-            subheader(starDisplay(h->get_star_rating())+" "+h->getName() + " | " + h->get_location());
+            subheader(starDisplay(h->get_star_rating()) + " " + h->get_name() +
+                      " | " + h->get_location());
             info("Amenities", h->get_amenities());
-            
+
             int free = 0;
             for (auto *r : h->get_rooms())
                 if (!r->get_book_status())
@@ -295,10 +298,10 @@ class UI {
             cout << endl;
             cout << C::BOLD << left << setw(14) << "Room ID" << setw(12)
                  << "Type" << setw(10) << "Price" << endl;
-            cout << "Status" << : C::RST << endl;
+            cout << "Status" << C::RST << endl;
             line('-');
 
-            for (auto r* : h->get_rooms()) {
+            for (auto *r : h->get_rooms()) {
                 string status =
                     r->get_book_status()
                         ? C::RED + "[BOOKED] by " + r->get_booker_ID() + C::RST
@@ -321,7 +324,7 @@ class UI {
             return;
         }
 
-        //ask for star rating
+        // ask for star rating
         cout << endl;
         opt(1, " 1-Star  (WiFi, Parking)");
         opt(2, " 2-Star  (WiFi, Parking, Breakfast)");
@@ -329,10 +332,11 @@ class UI {
         cout << endl;
         int stars = getInt("Select Star Rating", 1, 3);
 
-        sys.addHotel(name, loc);
-        auto h=sys.findHotel(name);
+        sys.addHotel(name, loc, stars);
+        auto h = sys.findHotel(name);
 
-        if(h) h->set_star_rating(stars);
+        if (h)
+            h->set_star_rating(stars);
         ok("Hotel \"" + name +
            "\" added with 10 rooms (4 Economy, 4 Standard, 2 Premium)");
         pause();
@@ -355,11 +359,11 @@ class UI {
         pause();
     }
 
-    void adminViewGuest() {
+    void adminViewGuests() {
         clearScreen();
 
         header("ALL GUESTS", C::CYN);
-        auto &guests = sys.getGuests();
+        const auto &guests = sys.getGuests();
         if (guests.empty()) {
             warn("No registered guests yet");
             pause();
@@ -368,13 +372,13 @@ class UI {
 
         for (auto &g : guests) {
             line('-');
-            info("Name", g->getFullName());
-            info("Username", g->getUsername());
-            info("Email", g->getEmail());
-            info("Phone", g->getPhone());
-            info("NID", g->getNid());
-            info("Tier", tierName(g->getTier()));
-            info("Bookings", to_string(g->getBookingHistory().size()).size());
+            info("Name", g.getFullName());
+            info("Username", g.getUsername());
+            info("Email", g.getEmail());
+            info("Phone", g.getPhone());
+            info("NID", g.getNid());
+            info("Tier", tierName(g.getTier()));
+            info("Bookings", to_string(g.getBookingHistory().size()));
         }
 
         line();
@@ -438,14 +442,14 @@ class UI {
 
             header("GUEST PROFILE", C::CYN);
             info("Name", currentGuest->getFullName());
-            info("Username", currentGuest->getUserame());
+            info("Username", currentGuest->getUsername());
             info("Email", currentGuest->getEmail());
             info("Phone", currentGuest->getPhone());
             info("Address", currentGuest->getAddress());
             info("NID", currentGuest->getNid());
             info("Memeber Since", currentGuest->getProfileCreated());
             info("Memeber Tier", tierName(currentGuest->getTier()));
-            info("Name", to_string(currentGuest->getBookingHistory()));
+            info("Name", to_string(currentGuest->getBookingHistory().size()));
 
             auto &hist = currentGuest->getBookingHistory();
             if (!hist.empty()) {
@@ -456,7 +460,7 @@ class UI {
                                           : C::RED + "[PAST]" + C::RST;
 
                     cout << " " << tag << " " << C::CYN << b.hotelName << C::RST
-                         << " Room " << b.roomID << " (" << b.roomTypeMM << ")"
+                         << " Room " << b.roomID << " (" << b.roomType << ")"
                          << " " << b.checkIn << " -> " << b.checkOut << " $"
                          << (int)b.totalCost << endl;
                 }
@@ -480,22 +484,21 @@ class UI {
         clearScreen();
 
         header("AVAILABLE HOTELS", C::GRN);
-        auto &hotels = sys.getHotels();
+        const auto &hotels = sys.getHotels();
         for (int i = 0; i < (int)hotels.size(); i++) {
             auto &h = hotels[i];
-            int freee = 0;
+            int free = 0;
 
             for (auto *t : h->get_rooms())
-                if (!r->get_book_status())
+                if (!t->get_book_status())
                     free++;
 
-            cout << " " << C::CYN << "[" << (i + 1) << "]"
-                 << C::BOLD << h->get_name() << C::RST
-                 << " " << C::YEL << starDisplay(h->get_star_rating()) << C::RST
-                 << " " << C::GRY << h->get_location() << C::RST
-                 << " " << C::GRN << to_string(free) << " rooms free"
-                 << C::RST << endl;
-            cout <<" "<<C::GRY<<h->get_amenities()<<C::RST<<endl;
+            cout << " " << C::CYN << "[" << (i + 1) << "]" << C::BOLD
+                 << h->get_name() << C::RST << " " << C::YEL
+                 << starDisplay(h->get_star_rating()) << C::RST << " " << C::GRY
+                 << h->get_location() << C::RST << " " << C::GRN
+                 << to_string(free) << " rooms free" << C::RST << endl;
+            cout << " " << C::GRY << h->get_amenities() << C::RST << endl;
         }
 
         cout << endl;
@@ -509,11 +512,13 @@ class UI {
     }
 
     // particular hotel page
-    void showParticularHotelPage(Hotel* hotel) {
+    void showParticularHotelPage(Hotel *hotel) {
         while (true) {
             clearScreen();
 
-            header(hotel->get_name() + " " + starDisplay(hotel->get_star_rating()), C::GRN);
+            header(hotel->get_name() + " " +
+                       starDisplay(hotel->get_star_rating()),
+                   C::GRN);
             info("Location", hotel->get_location());
             info("Amenities", hotel->get_amenities());
             cout << endl;
@@ -526,7 +531,7 @@ class UI {
             line('-');
             for (auto *r : hotel->get_rooms()) {
                 string status = r->get_book_status()
-                                    ? C::RED + "[BROKEN]" + C::RST
+                                    ? C::RED + "[BOOKED]" + C::RST
                                     : C::GRN + "[FREE]" + C::RST;
                 cout << "  " << C::CYN << left << setw(14) << r->get_room_ID()
                      << C::WHT << setw(12) << roomTypeName(r->get_type())
@@ -544,7 +549,7 @@ class UI {
             if (c == 0)
                 return;
 
-            string roomID = promt("Enter Room ID");
+            string roomID = prompt("Enter Room ID");
             Room *room = hotel->find_room(roomID);
 
             if (!room) {
@@ -564,7 +569,7 @@ class UI {
     }
 
     // individual room page
-    void showIndividualRoomPage(Hotel* hotel, Room *room) {
+    void showIndividualRoomPage(Hotel *hotel, Room *room) {
         clearScreen();
 
         header("ROOM DETAILS", C::YEL);
@@ -581,7 +586,7 @@ class UI {
             Standard_room *sr = dynamic_cast<Standard_room *>(room);
 
             if (sr) {
-                auto privs = sr->get_all_privilages();
+                auto privs = sr->get_all_priviledges();
                 string ps;
 
                 for (auto &p : privs)
@@ -602,7 +607,7 @@ class UI {
             Economy_room *er = dynamic_cast<Economy_room *>(room);
             if (er) {
                 info("Window", er->get_window() ? "Yes" : "No");
-                info("Shared WiFi", er->get_shared_wifi() ? "Yes" : "No");
+                //info("Shared WiFi", er.get_wi ? "Yes" : "No");
                 info("Private Facilities",
                      er->get_private_facilities() ? "Yes" : "No");
             }
@@ -616,11 +621,11 @@ class UI {
         int c = getInt("Choice", 0, 1);
         if (c == 0)
             return;
-        showCheckoutPage(hotel, room);
+        showCheckOutPage(hotel, room);
     }
 
     // checkout
-    void showCheckOutPage(Hotel* hotel, Room *room) {
+    void showCheckOutPage(Hotel *hotel, Room *room) {
         clearScreen();
 
         header("CHECKOUT & CONFIRMATION", C::MAG);
@@ -637,7 +642,7 @@ class UI {
 
         // create booking via hotel system
         Booking *booking = sys.createBooking(
-            currentGuest, hotel, room->get_room_ID(), chcekIn, checkOut);
+            currentGuest, hotel, room->get_room_ID(), checkIn, checkOut);
         if (!booking) {
             err("Booking failed. Room not available");
             pause();
@@ -646,10 +651,10 @@ class UI {
 
         booking->checkout();
 
-        if (room->get_book_status) {
+        if (room->get_book_status()) {
             sys.confirmBooking(currentGuest, hotel, room, checkIn, checkOut,
                                booking->getDiscountedPrice());
-            ok("Booking Confirmed! Enjoy your stay at " + hotel)
+            ok("Booking Confirmed! Enjoy your stay at " + hotel->get_name());
         } else {
             warn("Payment was not completed. Booking not confirmed");
         }
@@ -659,11 +664,11 @@ class UI {
     }
 
   public:
-    explicit UI(HotelSysytem &s) : sys(s) {}
+    explicit UI(HotelSystem &s)
+        : sys(s), currentGuest(NULL), currentAdmin(NULL) {}
 
     void run() {
-        while (showWelcomePage()) {
-        }
+        while (showWelcomePage()) {}
         header("Goodbye!", C::CYN);
         cout << endl;
         cout << "Thank you for using Project_403!" << endl;
