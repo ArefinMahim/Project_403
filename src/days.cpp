@@ -97,7 +97,7 @@ Days Days::stringToDate(const string &s){
     char slash1, slash2;
     stringstream ss(s);
     ss>>d>>slash1>>m>>slash2>>y;
-    if(ss.fail() || slash1!='-' || slash2!='-') throw runtime_error("Invalid date format");
+    if(ss.fail() || (slash1!='/' && slash1!='-') || (slash2!='/' && slash2!='-')) throw runtime_error("Invalid date format: " + s);
     return Days(d,m,y);
 }
 

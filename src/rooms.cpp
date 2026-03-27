@@ -86,7 +86,7 @@ int Room::total_room_count = 0;
 
     double Standard_room::calculate_total_price()const
     {
-        return get_base_price() * 3.0;  //3.0 has just been put as a buffer number, after implementing date class, we will use that to determine total cost
+        return get_base_price(); 
     }
 
     void Standard_room::print_description()const
@@ -130,7 +130,10 @@ int Standard_room::Standard_room_count = 0;
 
 // Economy room functions
 
-    Economy_room::Economy_room():Room(), has_window(false),shared_wifi(true),has_private_facilities(false){}
+    Economy_room::Economy_room():Room(), has_window(false),shared_wifi(true),has_private_facilities(false)
+    {
+        set_type(Economy);
+    }
 
     void Economy_room::print_description() const
     {
@@ -190,7 +193,10 @@ int Standard_room::Standard_room_count = 0;
 
     //Premium Room Functions
 
-    Premium_room::Premium_room():Room(),has_dedicated_staff(true),is_connected_to({"spa","gym"}){}
+    Premium_room::Premium_room():Room(),has_dedicated_staff(true),is_connected_to({"spa","gym"})
+    {
+        set_type(Premium);
+    }
 
     double Premium_room::calculate_total_price()const
     {
