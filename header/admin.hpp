@@ -3,7 +3,6 @@
 #include "hotel.hpp"
 #include "rooms.hpp"
 #include "guest.hpp"
-#include "days.hpp"
 #include<vector>
 #include<string>
 
@@ -22,6 +21,8 @@ class Admin: public Person
     Admin(int id, string first, string last, string phone, string email, string address, string username, string password);
 
     string getUsername() const;
+
+    string getPassword()const;
 
     bool authenticate(string pass) const;
 
