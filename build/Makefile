@@ -153,6 +153,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/admin.o: src/admin.cpp.o
+.PHONY : src/admin.o
+
+# target to build an object file
+src/admin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/admin.cpp.o
+.PHONY : src/admin.cpp.o
+
+src/admin.i: src/admin.cpp.i
+.PHONY : src/admin.i
+
+# target to preprocess a source file
+src/admin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/admin.cpp.i
+.PHONY : src/admin.cpp.i
+
+src/admin.s: src/admin.cpp.s
+.PHONY : src/admin.s
+
+# target to generate assembly for a file
+src/admin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/admin.cpp.s
+.PHONY : src/admin.cpp.s
+
 src/billing.o: src/billing.cpp.o
 .PHONY : src/billing.o
 
@@ -176,6 +200,30 @@ src/billing.s: src/billing.cpp.s
 src/billing.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/billing.cpp.s
 .PHONY : src/billing.cpp.s
+
+src/days.o: src/days.cpp.o
+.PHONY : src/days.o
+
+# target to build an object file
+src/days.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/days.cpp.o
+.PHONY : src/days.cpp.o
+
+src/days.i: src/days.cpp.i
+.PHONY : src/days.i
+
+# target to preprocess a source file
+src/days.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/days.cpp.i
+.PHONY : src/days.cpp.i
+
+src/days.s: src/days.cpp.s
+.PHONY : src/days.s
+
+# target to generate assembly for a file
+src/days.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/days.cpp.s
+.PHONY : src/days.cpp.s
 
 src/guest.o: src/guest.cpp.o
 .PHONY : src/guest.o
@@ -224,6 +272,30 @@ src/hotel.s: src/hotel.cpp.s
 src/hotel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/hotel.cpp.s
 .PHONY : src/hotel.cpp.s
+
+src/payment.o: src/payment.cpp.o
+.PHONY : src/payment.o
+
+# target to build an object file
+src/payment.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/payment.cpp.o
+.PHONY : src/payment.cpp.o
+
+src/payment.i: src/payment.cpp.i
+.PHONY : src/payment.i
+
+# target to preprocess a source file
+src/payment.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/payment.cpp.i
+.PHONY : src/payment.cpp.i
+
+src/payment.s: src/payment.cpp.s
+.PHONY : src/payment.s
+
+# target to generate assembly for a file
+src/payment.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Project_403.dir/build.make CMakeFiles/Project_403.dir/src/payment.cpp.s
+.PHONY : src/payment.cpp.s
 
 src/person.o: src/person.cpp.o
 .PHONY : src/person.o
@@ -285,15 +357,24 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/admin.o"
+	@echo "... src/admin.i"
+	@echo "... src/admin.s"
 	@echo "... src/billing.o"
 	@echo "... src/billing.i"
 	@echo "... src/billing.s"
+	@echo "... src/days.o"
+	@echo "... src/days.i"
+	@echo "... src/days.s"
 	@echo "... src/guest.o"
 	@echo "... src/guest.i"
 	@echo "... src/guest.s"
 	@echo "... src/hotel.o"
 	@echo "... src/hotel.i"
 	@echo "... src/hotel.s"
+	@echo "... src/payment.o"
+	@echo "... src/payment.i"
+	@echo "... src/payment.s"
 	@echo "... src/person.o"
 	@echo "... src/person.i"
 	@echo "... src/person.s"

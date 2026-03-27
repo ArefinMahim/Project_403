@@ -86,10 +86,24 @@ CMakeFiles/Project_403.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/main.cpp -o CMakeFiles/Project_403.dir/main.cpp.s
 
+CMakeFiles/Project_403.dir/src/admin.cpp.o: CMakeFiles/Project_403.dir/flags.make
+CMakeFiles/Project_403.dir/src/admin.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/admin.cpp
+CMakeFiles/Project_403.dir/src/admin.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project_403.dir/src/admin.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/admin.cpp.o -MF CMakeFiles/Project_403.dir/src/admin.cpp.o.d -o CMakeFiles/Project_403.dir/src/admin.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/admin.cpp
+
+CMakeFiles/Project_403.dir/src/admin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Project_403.dir/src/admin.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/admin.cpp > CMakeFiles/Project_403.dir/src/admin.cpp.i
+
+CMakeFiles/Project_403.dir/src/admin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/src/admin.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/admin.cpp -o CMakeFiles/Project_403.dir/src/admin.cpp.s
+
 CMakeFiles/Project_403.dir/src/billing.cpp.o: CMakeFiles/Project_403.dir/flags.make
 CMakeFiles/Project_403.dir/src/billing.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/billing.cpp
 CMakeFiles/Project_403.dir/src/billing.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project_403.dir/src/billing.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project_403.dir/src/billing.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/billing.cpp.o -MF CMakeFiles/Project_403.dir/src/billing.cpp.o.d -o CMakeFiles/Project_403.dir/src/billing.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/billing.cpp
 
 CMakeFiles/Project_403.dir/src/billing.cpp.i: cmake_force
@@ -100,10 +114,24 @@ CMakeFiles/Project_403.dir/src/billing.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/src/billing.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/billing.cpp -o CMakeFiles/Project_403.dir/src/billing.cpp.s
 
+CMakeFiles/Project_403.dir/src/days.cpp.o: CMakeFiles/Project_403.dir/flags.make
+CMakeFiles/Project_403.dir/src/days.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/days.cpp
+CMakeFiles/Project_403.dir/src/days.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Project_403.dir/src/days.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/days.cpp.o -MF CMakeFiles/Project_403.dir/src/days.cpp.o.d -o CMakeFiles/Project_403.dir/src/days.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/days.cpp
+
+CMakeFiles/Project_403.dir/src/days.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Project_403.dir/src/days.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/days.cpp > CMakeFiles/Project_403.dir/src/days.cpp.i
+
+CMakeFiles/Project_403.dir/src/days.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/src/days.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/days.cpp -o CMakeFiles/Project_403.dir/src/days.cpp.s
+
 CMakeFiles/Project_403.dir/src/guest.cpp.o: CMakeFiles/Project_403.dir/flags.make
 CMakeFiles/Project_403.dir/src/guest.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/guest.cpp
 CMakeFiles/Project_403.dir/src/guest.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project_403.dir/src/guest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Project_403.dir/src/guest.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/guest.cpp.o -MF CMakeFiles/Project_403.dir/src/guest.cpp.o.d -o CMakeFiles/Project_403.dir/src/guest.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/guest.cpp
 
 CMakeFiles/Project_403.dir/src/guest.cpp.i: cmake_force
@@ -117,7 +145,7 @@ CMakeFiles/Project_403.dir/src/guest.cpp.s: cmake_force
 CMakeFiles/Project_403.dir/src/hotel.cpp.o: CMakeFiles/Project_403.dir/flags.make
 CMakeFiles/Project_403.dir/src/hotel.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/hotel.cpp
 CMakeFiles/Project_403.dir/src/hotel.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Project_403.dir/src/hotel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Project_403.dir/src/hotel.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/hotel.cpp.o -MF CMakeFiles/Project_403.dir/src/hotel.cpp.o.d -o CMakeFiles/Project_403.dir/src/hotel.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/hotel.cpp
 
 CMakeFiles/Project_403.dir/src/hotel.cpp.i: cmake_force
@@ -128,10 +156,24 @@ CMakeFiles/Project_403.dir/src/hotel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/src/hotel.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/hotel.cpp -o CMakeFiles/Project_403.dir/src/hotel.cpp.s
 
+CMakeFiles/Project_403.dir/src/payment.cpp.o: CMakeFiles/Project_403.dir/flags.make
+CMakeFiles/Project_403.dir/src/payment.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/payment.cpp
+CMakeFiles/Project_403.dir/src/payment.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Project_403.dir/src/payment.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/payment.cpp.o -MF CMakeFiles/Project_403.dir/src/payment.cpp.o.d -o CMakeFiles/Project_403.dir/src/payment.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/payment.cpp
+
+CMakeFiles/Project_403.dir/src/payment.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Project_403.dir/src/payment.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/payment.cpp > CMakeFiles/Project_403.dir/src/payment.cpp.i
+
+CMakeFiles/Project_403.dir/src/payment.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Project_403.dir/src/payment.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/payment.cpp -o CMakeFiles/Project_403.dir/src/payment.cpp.s
+
 CMakeFiles/Project_403.dir/src/person.cpp.o: CMakeFiles/Project_403.dir/flags.make
 CMakeFiles/Project_403.dir/src/person.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/person.cpp
 CMakeFiles/Project_403.dir/src/person.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Project_403.dir/src/person.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Project_403.dir/src/person.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/person.cpp.o -MF CMakeFiles/Project_403.dir/src/person.cpp.o.d -o CMakeFiles/Project_403.dir/src/person.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/person.cpp
 
 CMakeFiles/Project_403.dir/src/person.cpp.i: cmake_force
@@ -145,7 +187,7 @@ CMakeFiles/Project_403.dir/src/person.cpp.s: cmake_force
 CMakeFiles/Project_403.dir/src/rooms.cpp.o: CMakeFiles/Project_403.dir/flags.make
 CMakeFiles/Project_403.dir/src/rooms.cpp.o: /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/rooms.cpp
 CMakeFiles/Project_403.dir/src/rooms.cpp.o: CMakeFiles/Project_403.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Project_403.dir/src/rooms.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Project_403.dir/src/rooms.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Project_403.dir/src/rooms.cpp.o -MF CMakeFiles/Project_403.dir/src/rooms.cpp.o.d -o CMakeFiles/Project_403.dir/src/rooms.cpp.o -c /home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/src/rooms.cpp
 
 CMakeFiles/Project_403.dir/src/rooms.cpp.i: cmake_force
@@ -159,9 +201,12 @@ CMakeFiles/Project_403.dir/src/rooms.cpp.s: cmake_force
 # Object files for target Project_403
 Project_403_OBJECTS = \
 "CMakeFiles/Project_403.dir/main.cpp.o" \
+"CMakeFiles/Project_403.dir/src/admin.cpp.o" \
 "CMakeFiles/Project_403.dir/src/billing.cpp.o" \
+"CMakeFiles/Project_403.dir/src/days.cpp.o" \
 "CMakeFiles/Project_403.dir/src/guest.cpp.o" \
 "CMakeFiles/Project_403.dir/src/hotel.cpp.o" \
+"CMakeFiles/Project_403.dir/src/payment.cpp.o" \
 "CMakeFiles/Project_403.dir/src/person.cpp.o" \
 "CMakeFiles/Project_403.dir/src/rooms.cpp.o"
 
@@ -169,15 +214,18 @@ Project_403_OBJECTS = \
 Project_403_EXTERNAL_OBJECTS =
 
 Project_403: CMakeFiles/Project_403.dir/main.cpp.o
+Project_403: CMakeFiles/Project_403.dir/src/admin.cpp.o
 Project_403: CMakeFiles/Project_403.dir/src/billing.cpp.o
+Project_403: CMakeFiles/Project_403.dir/src/days.cpp.o
 Project_403: CMakeFiles/Project_403.dir/src/guest.cpp.o
 Project_403: CMakeFiles/Project_403.dir/src/hotel.cpp.o
+Project_403: CMakeFiles/Project_403.dir/src/payment.cpp.o
 Project_403: CMakeFiles/Project_403.dir/src/person.cpp.o
 Project_403: CMakeFiles/Project_403.dir/src/rooms.cpp.o
 Project_403: CMakeFiles/Project_403.dir/build.make
 Project_403: CMakeFiles/Project_403.dir/compiler_depend.ts
 Project_403: CMakeFiles/Project_403.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Project_403"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/jarofsalad/Workspace/Uni_Work/2-1/project_403/Project_403/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable Project_403"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Project_403.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

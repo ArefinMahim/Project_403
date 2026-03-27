@@ -92,7 +92,7 @@ Days Days::operator--(int){
     return temp;
 }
 
-Days stringToDate(const string &s){
+Days Days::stringToDate(const string &s){
     int d,m,y;
     char slash1, slash2;
     stringstream ss(s);
